@@ -1,3 +1,4 @@
+2013-10-07 Version 0.6.1 Get rid of absolute path so code will run on multiple machines
 2013-10-07 Version 0.6.1 Get mfile version number from file, get MariaDB info from MariaDB server
 2013-10-07 Version 0.6.1 Start converting start.html into autohandler
 2013-10-07 Version 0.6.1 Finesse BOOTSTRAP instructions
