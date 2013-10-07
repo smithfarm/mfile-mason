@@ -7,8 +7,7 @@ TMPFILE=Changelog.tmp
 # get release description
 echo "Changelog entry for this update:"
 read CHGLOGENTRY
-#echo -n $CHGLOGENTRY | sed "s/'/''/g" > $TMPFILE
-#CHGLOGENTRY=`cat $TMPFILE`
+echo $CHGLOGENTRY
 
 # update Changelog
 CMD="sed \"1 i `date +%Y-%m-%d` Version $VERNUM $CHGLOGENTRY\" Changelog >$TMPFILE"
