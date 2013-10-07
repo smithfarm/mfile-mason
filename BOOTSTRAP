@@ -1,0 +1,42 @@
+Bootstrapping Mason
+
+1. log in (as root) to computer running SUSE Linux
+2. zypper se -s mason, see that 'perl-HTML-Mason' package is installed
+3. also see that you have 'apache2' installed, minimally configured (e.g. 'chkconfig apache2 on' or
+   systemd equivalent) and running
+4. in /etc/sysconfig/apache2, see that APACHE_MODULES contains 'perl'
+5. set up DNS, /etc/hosts or whatever for your Mason virtual host
+5. in /etc/apache2/vhosts.d, create a configuration file for the virtual host with the following
+contents:
+
+<VirtualHost [my_virtual_hostname]:80>
+    ServerAdmin ncutler@localhost
+    ServerName [my_virtual_hostname]
+    DocumentRoot /srv/www/mason/components
+    HostnameLookups Off
+    UseCanonicalName Off
+    ServerSignature On
+    # # # ENABLE MASON
+    PerlModule HTML::Mason::ApacheHandler
+    <Directory "/srv/www/mason/components">
+        Options Indexes FollowSymLinks
+        AllowOverride None
+        Order allow,deny
+        Allow from all
+        SetHandler perl-script
+        PerlHandler HTML::Mason::ApacheHandler
+    </Directory>
+</VirtualHost>
+
+6. mkdir -p /srv/www/mason/components
+7. chown -R wwwrun.www /srv/www/mason
+8. create a test file /srv/www/mason/components/test
+
+<html>
+This is a test.
+This <% "nothing but a <friggin> test" | h %>.
+</html>
+
+8. rcapache2 restart
+9. point browser to your virtual host while praying to the Mason gods
+10. if there are problems, see /var/log/apache2/error_log

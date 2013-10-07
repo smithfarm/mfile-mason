@@ -1,0 +1,87 @@
+body {
+   background-color:#d0e4fe;
+   font-family: "Courier New",
+		 Courier,
+		 monospace;
+   font-size:   16px;
+   width:850px;
+}
+
+.abovebox {
+   padding-left: 5px;
+}
+
+.boxtop {
+   border-bottom: solid;
+   border-left: solid;
+   border-right: solid;
+   border-top: solid;
+   line-height: 1;
+   padding: 5px;
+   height:24px;
+}
+
+.subbox {
+   display: inline-block;
+}
+
+.single {
+   border-left: solid;
+   border-right: solid;
+}
+
+.mainarea {
+   padding: 10px;
+   border-left: solid;
+   border-right: solid;
+   background: #ccc;
+}
+
+.mfileid {
+   padding-right: 10px;
+   padding-bottom: 0px;
+   line-height: 30px;
+}
+
+.mfilecode {
+}
+
+.mfilekeyw {
+   line-height: 1;
+   height:115px;
+}
+
+.mfiledesc {
+   line-height: 1;
+   height:180px;
+}
+
+.boxbot {
+   padding:5px;
+   border-bottom: solid;
+   border-left: solid;
+   border-right: solid;
+   border-top: solid;
+   line-height: 30px;
+   height:30px;
+}
+
+.dbstatus {
+   font-size:   12px;
+   padding:3px;
+   line-height: 1;
+   height:18px;
+}
+
+input, textarea {
+   font-family:    "Courier New",
+		Courier,
+		monospace;
+   font-size: 20px;
+   border-style:	none;
+   background-color:black;
+   color: #d0e4fe;
+   font-weight: bold;
+   padding-left: 2px;
+   resize: none;
+}
