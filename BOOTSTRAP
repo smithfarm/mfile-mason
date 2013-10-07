@@ -17,6 +17,8 @@ contents:
     UseCanonicalName Off
     ServerSignature On
     # # # ENABLE MASON
+    PerlOptions +Parent
+    PerlSwitches -I/srv/www/mason/components/[my_lib_dir]
     PerlModule HTML::Mason::ApacheHandler
     <Directory "/srv/www/mason/components">
         Options Indexes FollowSymLinks
