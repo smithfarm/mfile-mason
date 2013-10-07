@@ -6,7 +6,7 @@
 # and then increments the version number.
 
 # define local working directory
-DIRPREFIX='/home/smithfarm/src/'
+DIRPREFIX='/home/ncutler/src/'
 DIRNAME='mfile-mason'
 
 # ensure we are in that directory

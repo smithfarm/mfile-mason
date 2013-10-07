@@ -3,8 +3,8 @@
 </%flags>
 
 <%args>
- $mfilevernum
- $dbvernum
+ %IntConfig
+ %ExtConfig
 </%args>
 
 <!DOCTYPE html>
@@ -16,7 +16,7 @@
 </head>
 
 <body>
-<title>MFILE {{ vernum }}</title>
+<title>MFILE <% $IntConfig{'mfilevernum'} %></title>
 <script src="js/jquery.js"></script>
 <script src="js/01init.js"></script>
 <script src="js/02ldap.js"></script>
@@ -27,12 +27,12 @@
 <script src="js/07file.js"></script>
 <script src="js/08rest.js"></script>
 
-<!-- urlcorrectness === "lost" when user provides invalid URL -->
-<input type="hidden" id="urlcorrectness" value="{{ lost }}" />
+<!-- foobar is a hidden field in the DOM -->
+<input type="hidden" id="foobar" value="" />
 
 <div class="abovebox" id="title">
 <div class="subbox" style="font-size: 24px; width: 80px"><strong>MFILE</strong></div>
-<div class="subbox" id="versionbox" style="width: 50px"><% $mfilevernum %></div>
+<div class="subbox" id="versionbox" style="width: 50px"><% $IntConfig{'mfilevernum'} %></div>
 <div class="subbox" style="width: 480px"></div>
 <div class="subbox" id="userid"></div>
 </div>
@@ -54,7 +54,7 @@ see what's wrong)
 </div>
 
 <div class="dbstatus" id="dbstatus">
-<% $dbvernum %>
+<% $IntConfig{'dbvernum'} %>
 </div>
 
 </body>

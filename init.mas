@@ -1,25 +1,32 @@
 <& /mfile-mason/start.html, 
-      mfilevernum => $mfilevernum, 
-      dbvernum => $dbvernum,
-      dbh => $dbh
+      IntConfig => $IntConfig,
+      ExtConfig => $ExtConfig
 &>
 
 <%init>
 
  use DBI;
+ use Config::Simple;
 
- # get $vernum from VERSION
+ # create blank hashrefs to hold configuration parameters
+ my $IntConfig = {};
+ my $ExtConfig = {};
+
+ # load external configuration into ExtConfig hash
+ Config::Simple->import_from('/etc/mfile-mason.conf', $ExtConfig);
+
+ # get mfile version number (hardcoded in VERSION file)
  open my $fh, "<", "/srv/www/mason/components/mfile-mason/VERSION" or die $!;
- my $mfilevernum = <$fh>;
+ $ExtConfig->{'mfilevernum'} = <$fh>;
  close $fh;
 
  # get MariaDB version number from MariaDB server (and save the connection handle)
- my $dbh = DBI->connect('dbi:mysql:mfiledb', 'mfile', 'mfile')
+ $ExtConfig->{'dbh'} = DBI->connect('dbi:mysql:mfiledb', 'mfile', 'mfile')
     or die "Connection error: $DBI::errstr\n";
  my $sql = "SELECT version();";
- my $sth = $dbh->prepare($sql);
+ my $sth = $ExtConfig->{'dbh'}->prepare($sql);
  $sth->execute
     or die "Connection error: $DBI::errstr\n";
- my $dbvernum = $sth->fetchrow_array();
+ $IntConfig->{'dbvernum'} = $sth->fetchrow_array();
 
 </%init>

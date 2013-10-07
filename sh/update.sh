@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # define local working directory
-DIRPREFIX='/home/smithfarm/src/'
+DIRPREFIX='/home/ncutler/src/'
 DIRNAME='mfile-mason'
 
 # ensure we are in that directory
@@ -18,7 +18,6 @@ TMPFILE=Changelog.tmp
 # get release description
 echo "Changelog entry for this update:"
 read CHGLOGENTRY
-echo $CHGLOGENTRY
 
 # update Changelog
 CMD="sed \"1 i `date +%Y-%m-%d` Version $VERNUM $CHGLOGENTRY\" Changelog >$TMPFILE"
