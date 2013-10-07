@@ -32,9 +32,9 @@ mv $TMPFILE Changelog
 
 # git
 git commit -a -m "$CHGLOGENTRY"
-echo -n "Pushing the commit to Github. . . "
-git push -u origin master
-echo "Done."
+#echo -n "Pushing the commit to Github. . . "
+#git push -u origin master
+#echo "Done."
 
 # parse version number using trick from stackoverflow.com
 oIFS="$IFS"      # IFS is bash's argument separator, normally a space
