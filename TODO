@@ -1,0 +1,3 @@
+20131007 Learn more about Perl packages and package variables: specifically, how to declare a package variable so I don't have to prefix it with the package name all the time
+20131007 Come up with a more reasonable way to load JS code into Mason component
+20131007 Or, alternatively, come up with a single JS function that copies IntConfig and ExtConfig hashes into MFILE.x.y global JS variable
