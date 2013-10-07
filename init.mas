@@ -1,7 +1,4 @@
-<& /mfile-mason/start.html, 
-      IntConfig => $mfile_init::IntConfig,
-      ExtConfig => $mfile_init::ExtConfig
-&>
+<& /mfile-mason/start.html &>
 
 <%init>
 

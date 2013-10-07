@@ -2,10 +2,9 @@
  inherit => 'init.mas'
 </%flags>
 
-<%args>
- %IntConfig
- %ExtConfig
-</%args>
+<%init>
+ use mfile_init;
+</%init>
 
 <!DOCTYPE html>
 <html>
@@ -16,23 +15,23 @@
 </head>
 
 <body>
-<title>MFILE <% $IntConfig{'mfilevernum'} %></title>
-<script src="js/jquery.js"></script>
-<script src="js/01init.js"></script>
-<script src="js/02ldap.js"></script>
-<script src="js/03cook.js"></script>
-<script src="js/04auth.js"></script>
-<script src="js/05menu.js"></script>
-<script src="js/06code.js"></script>
-<script src="js/07file.js"></script>
-<script src="js/08rest.js"></script>
+<title>MFILE <% $mfile_init::ExtConfig->{'mfilevernum'} %></title>
+<script><& /mfile-mason/js/jquery.js &></script>
+<script><& /mfile-mason/js/01init.js &></script>
+<script><& /mfile-mason/js/02ldap.js &></script>
+<script><& /mfile-mason/js/03cook.js &></script>
+<script><& /mfile-mason/js/04auth.js &></script>
+<script><& /mfile-mason/js/05menu.js &></script>
+<script><& /mfile-mason/js/06code.js &></script>
+<script><& /mfile-mason/js/07file.js &></script>
+<script><& /mfile-mason/js/08rest.js &></script>
 
 <!-- foobar is a hidden field in the DOM -->
 <input type="hidden" id="foobar" value="" />
 
 <div class="abovebox" id="title">
 <div class="subbox" style="font-size: 24px; width: 80px"><strong>MFILE</strong></div>
-<div class="subbox" id="versionbox" style="width: 50px"><% $IntConfig{'mfilevernum'} %></div>
+<div class="subbox" id="versionbox" style="width: 50px"><% $mfile_init::ExtConfig->{'mfilevernum'} %></div>
 <div class="subbox" style="width: 480px"></div>
 <div class="subbox" id="userid"></div>
 </div>
@@ -54,10 +53,9 @@ see what's wrong)
 </div>
 
 <div class="dbstatus" id="dbstatus">
-<% $IntConfig{'dbvernum'} %>
+<% $mfile_init::IntConfig->{'dbvernum'} %>
 </div>
 
 </body>
 </html>
-
 

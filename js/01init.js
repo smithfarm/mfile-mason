@@ -36,6 +36,10 @@ MFILE.activeCode = {
   desc: ""
 };
 
+MFILE.ldap = {
+   server: '<% $mfile_init::ExtConfig->{'LdapServer'} %>'
+}
+
 // ----------------
 // Helper Functions
 // ---------------- 
@@ -43,3 +47,7 @@ MFILE.activeCode = {
 function logKeyPress(evt) {
    console.log("WHICH: "+evt.which+", KEYCODE: "+evt.keyCode);
 }
+
+<%init>
+ use mfile_init;
+</%init>
