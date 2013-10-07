@@ -30,7 +30,7 @@ contents:
 
 6. mkdir -p /srv/www/mason/components
 7. chown -R wwwrun.www /srv/www/mason
-8. create a test file /srv/www/mason/components/test
+8. create a test file /srv/www/mason/components/test.html
 
 <html>
 This is a test.
@@ -38,5 +38,5 @@ This <% "nothing but a <friggin> test" | h %>.
 </html>
 
 8. rcapache2 restart
-9. point browser to your virtual host while praying to the Mason gods
+9. point browser to http://[my_virtual_hostname]/test.html while praying to the Mason gods
 10. if there are problems, see /var/log/apache2/error_log
