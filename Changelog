@@ -1,3 +1,4 @@
+2013-10-07 Version 0.6.1 Add mfile_init.pm module
 2013-10-07 Version 0.6.1 Struggling with Mason variable scope and JS integration
 2013-10-07 Version 0.6.1 Added code for loading configuration parameters from file
 2013-10-07 Version 0.6.1 Get rid of absolute path so code will run on multiple machines
