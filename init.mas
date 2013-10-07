@@ -1,0 +1,25 @@
+<& /mfile-mason/start.html, 
+      mfilevernum => $mfilevernum, 
+      dbvernum => $dbvernum,
+      dbh => $dbh
+&>
+
+<%init>
+
+ use DBI;
+
+ # get $vernum from VERSION
+ open my $fh, "<", "/srv/www/mason/components/mfile-mason/VERSION" or die $!;
+ my $mfilevernum = <$fh>;
+ close $fh;
+
+ # get MariaDB version number from MariaDB server (and save the connection handle)
+ my $dbh = DBI->connect('dbi:mysql:mfiledb', 'mfile', 'mfile')
+    or die "Connection error: $DBI::errstr\n";
+ my $sql = "SELECT version();";
+ my $sth = $dbh->prepare($sql);
+ $sth->execute
+    or die "Connection error: $DBI::errstr\n";
+ my $dbvernum = $sth->fetchrow_array();
+
+</%init>

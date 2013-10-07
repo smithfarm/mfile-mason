@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# define local working directory
+DIRPREFIX='/home/smithfarm/src/'
+DIRNAME='mfile-mason'
+
+# ensure we are in that directory
+cd $DIRPREFIX$DIRNAME
+
+# get mfile version number
+VERNUM=`head -n 1 VERSION`
+TMPFILE=Changelog.tmp
+
 # get mfile version number
 VERNUM=`head -n 1 VERSION`
 TMPFILE=Changelog.tmp

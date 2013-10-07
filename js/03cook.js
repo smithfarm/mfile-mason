@@ -41,4 +41,3 @@ MFILE.cookie.read = function (name) {
 MFILE.cookie.erase = function (name) {
    MFILE.cookie.create(name,"",-1);
 }
-

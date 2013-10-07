@@ -243,4 +243,3 @@ MFILE.searchCode = function () {
       }
    });
 }
-

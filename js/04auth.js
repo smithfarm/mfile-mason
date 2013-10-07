@@ -62,4 +62,3 @@ MFILE.authenticateUser = function () {
       }
    });
 }
-

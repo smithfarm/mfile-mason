@@ -43,4 +43,3 @@ MFILE.activeCode = {
 function logKeyPress(evt) {
    console.log("WHICH: "+evt.which+", KEYCODE: "+evt.keyCode);
 }
-
