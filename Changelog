@@ -1,3 +1,4 @@
+2013-10-08 Version 0.6.3 Test sh/release.sh
 2013-10-08 Version 0.6.3 No longer need mfile_init:: in front of Globals hash
 2013-10-08 Version 0.6.2 Improve initialization
 2013-10-07 Version 0.6.1 Figured out how to call JS files properly so I can put Mason/Perl code in them
