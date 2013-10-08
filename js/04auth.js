@@ -3,7 +3,15 @@
 //
 // MFILE.authenticateUser() function
 
+<%init>
+ use mfile_init;
+ use mfile_auth;
+ my $Global = $mfile_init::Global;
+</%init>
+
 "use strict";   // ES5/strict
+
+
 
 var processPassword = function () {
    var nam = $("#username").val();
@@ -13,8 +21,28 @@ var processPassword = function () {
    // for now, let smithfarm in without password, so he can work
    if (nam === "smithfarm") {
       uid = nam;
-   } 
-
+   } else {
+      $.ajax({
+         url: "ajax/check_password.mas",
+         type: "POST",
+         dataType: "json",
+         data: nam,
+         success: function(result) { 
+            console.log("AJAX POST success, result is: '"+result.queryResult+"'");
+            if (result.queryResult === "success") {
+               $("#result").html("success");
+	       uid = nam;
+            } else {
+               $('#result').html("FAILED: '"+result.queryResult+"'");
+               return false;
+            }
+         },
+         error: function(xhr, status, error) {
+            $("#result").html("AJAX ERROR: "+xhr.status);
+         }
+      });
+   }
+      
    if (uid) {
       console.log("User authenticated, right?");
       MFILE.uid = uid;

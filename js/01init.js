@@ -5,6 +5,11 @@
 //
 // Defines objects and helper functions
 
+<%init>
+ use mfile_init;
+ my $Global = $mfile_init::Global;
+</%init>
+
 "use strict";  // ES5/strict
 
 // ------------------
@@ -37,10 +42,10 @@ MFILE.activeCode = {
 };
 
 MFILE.ldap = {
-   enable: '<% $Global{'LdapEnable'} %>',
-   server: '<% $Global{'LdapServer'} %>',
-   base  : '<% $Global{'LdapBase'} %>',
-   filter: '<% $Global{'LdapFilter'} %>'
+   enable: '<% $Global->{'LdapEnable'} %>',
+   server: '<% $Global->{'LdapServer'} %>',
+   base  : '<% $Global->{'LdapBase'} %>',
+   filter: '<% $Global->{'LdapFilter'} %>'
 }
 
 // ----------------
@@ -50,7 +55,3 @@ MFILE.ldap = {
 function logKeyPress(evt) {
    console.log("WHICH: "+evt.which+", KEYCODE: "+evt.keyCode);
 }
-
-<%init>
- use mfile_init;
-</%init>

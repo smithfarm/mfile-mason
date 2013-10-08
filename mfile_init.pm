@@ -8,6 +8,10 @@
 
 
 package mfile_init;
+use parent pw(Exporter);
+
+our @EXPORT = qw($Global);
+our $Global = {};
 
 use DBI;
 use Config::Simple;

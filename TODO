@@ -1,2 +1,5 @@
 20131007 Package in OBS
-20131008 LDAP authentication 
+20131008 test AJAX call (ajax/check_password.mas)
+20131008 LDAP authentication via AJAX call (../ldap-bind.plx)
+
+
