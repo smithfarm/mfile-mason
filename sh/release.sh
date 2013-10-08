@@ -28,7 +28,7 @@ mv $TMPFILE Changelog
 # create tar archive of present release
 ( mkdir -p ../mfile-releases && cd .. && tar cfz mfile-releases/mfile-$VERNUM.tar.gz \
 	--exclude-from $DIRPREFIX"EXCLUDE" \
-	mfile )
+	$DIRNAME )
 
 # git
 git commit -a -m "$CHGLOGENTRY"
