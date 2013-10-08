@@ -2,5 +2,5 @@
 
 <%init>
  use mfile_init;
- local $Global = mfile_init::LoadGlobal();
+ local %Global = mfile_init::LoadGlobal();
 </%init>

@@ -1,3 +1,12 @@
+#
+# mfile-mason/mfile_init.pm
+#
+# load configuration parameters from /etc/mfile-mason.conf
+# and populate %{$Global}
+#
+# 20131008 ncutler
+
+
 package mfile_init;
 
 use DBI;
@@ -41,6 +50,19 @@ sub _get_mariadb_version {
 
 }
 
+# move LDAP configuration from Config to Global, as Config is
+# accessible only from within this package
+sub _get_ldap_configuration {
+
+   my $Config = shift;
+
+   $Global->{'LdapEnable'} = $Config->{'LdapEnable'};
+   $Global->{'LdapServer'} = $Config->{'LdapServer'};
+   $Global->{'LdapBase'} = $Config->{'LdapBase'};
+   $Global->{'LdapFilter'} = $Config->{'LdapFilter'};
+
+}
+   
 # load configuration parameters from file
 sub LoadGlobal {
 
@@ -52,6 +74,9 @@ sub LoadGlobal {
    Config::Simple->import_from('/etc/mfile-mason.conf', $Config);
    _get_mfile_version($Config);
    _get_mariadb_version($Config);
+   _get_ldap_configuration($Config);
+
+   return %$Global;
 }
  
 1;

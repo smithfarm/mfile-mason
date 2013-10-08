@@ -2,11 +2,15 @@
  inherit => 'init.mas'
 </%flags>
 
+<%init>
+ use mfile_init;
+</%init>
+
 <!DOCTYPE html>
 <html>
 <head>
    <meta charset="utf-8">
-   <title>MFILE <% $mfile_init::Global->{'mfilevernum'} %></title>
+   <title>MFILE <% $Global{'mfilevernum'} %></title>
    <link rel="stylesheet" type="text/css" href="css/start.css" />
 </head>
 
@@ -26,7 +30,7 @@
 
 <div class="abovebox" id="title">
 <div class="subbox" style="font-size: 24px; width: 80px"><strong>MFILE</strong></div>
-<div class="subbox" id="versionbox" style="width: 50px"><% $mfile_init::Global->{'mfilevernum'} %></div>
+<div class="subbox" id="versionbox" style="width: 50px"><% $Global{'mfilevernum'} %></div>
 <div class="subbox" style="width: 480px"></div>
 <div class="subbox" id="userid"></div>
 </div>
@@ -48,7 +52,7 @@ see what's wrong)
 </div>
 
 <div class="dbstatus" id="dbstatus">
-<% $mfile_init::Global->{'dbvernum'} %>
+<% $Global{'dbvernum'} %>
 </div>
 
 </body>

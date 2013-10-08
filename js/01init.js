@@ -37,7 +37,10 @@ MFILE.activeCode = {
 };
 
 MFILE.ldap = {
-   server: '<% $mfile_init::ExtConfig->{'LdapServer'} %>'
+   enable: '<% $Global{'LdapEnable'} %>',
+   server: '<% $Global{'LdapServer'} %>',
+   base  : '<% $Global{'LdapBase'} %>',
+   filter: '<% $Global{'LdapFilter'} %>'
 }
 
 // ----------------

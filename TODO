@@ -1,3 +1,2 @@
-20131007 Learn more about Perl packages and package variables: specifically, how to declare a package variable so I don't have to prefix it with the package name all the time
-20131007 Package the bugger (or, alternatively, make a MANIFEST file with everything that needs to go into the package)
-20131007 Fix broken bumblebee on NB (create group, etc.)
+20131007 Package in OBS
+20131008 LDAP authentication 

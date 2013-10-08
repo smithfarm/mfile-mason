@@ -1,0 +1,7 @@
+Brief installation instructions
+
+1. copy mfile-mason.conf to /etc and edit to taste
+2. copy vhost.conf to /etc/apache2/vhosts.d and edit to taste
+3. rcapache2 restart
+
+For long installation instructions, see BOOTSTRAP file
