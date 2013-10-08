@@ -1,4 +1,4 @@
-Bootstrapping Mason
+Bootstrapping mfile-mason for development
 
 1. log in (as root) to computer running SUSE Linux
 2. zypper se -s mason, see that 'perl-HTML-Mason' package is installed
@@ -6,48 +6,27 @@ Bootstrapping Mason
    systemd equivalent) and running
 4. in /etc/sysconfig/apache2, see that APACHE_MODULES contains 'perl'
 5. set up DNS, /etc/hosts or whatever for your Mason virtual host
-5. in /etc/apache2/vhosts.d, create a configuration file for the virtual host with the following
-contents:
-
-<VirtualHost [my_virtual_hostname]:80>
-    ServerAdmin ncutler@localhost
-    ServerName [my_virtual_hostname]
-    DocumentRoot /srv/www/mason/components
-    HostnameLookups Off
-    UseCanonicalName Off
-    ServerSignature On
-    # # # ENABLE MASON
-    PerlOptions +Parent
-    PerlSwitches -I/srv/www/mason/components/[my_lib_dir]
-    PerlModule HTML::Mason::ApacheHandler
-    <Directory "/srv/www/mason/components">
-        Options Indexes FollowSymLinks
-        AllowOverride None
-        Order allow,deny
-        Allow from all
-        SetHandler perl-script
-        PerlHandler HTML::Mason::ApacheHandler
-    </Directory>
-</VirtualHost>
-
-6. mkdir -p /srv/www/mason/components
-7. chown -R wwwrun.www /srv/www/mason
-8. create a test file /srv/www/mason/components/test.html
+6. in /etc/apache2/vhosts.d, create a configuration file for the
+   virtual host with the contents provided in [dist]/etc/vhost.conf
+7. mkdir -p /srv/www/mason/components
+8. chown -R wwwrun.www /srv/www/mason
+9. create a test file /srv/www/mason/components/test.html
 
 <html>
 This is a test.
 This <% "nothing but a <friggin> test" | h %>.
 </html>
 
-8. rcapache2 restart
-9. point browser to http://[my_virtual_hostname]/test.html while praying to the Mason gods
-10. test file should display correctly; if there are problems, see /var/log/apache2/error_log
-11. unpack the mfile-mason distribution to [dist]
-12. cp [dist]/etc/mfile-mason.conf /etc
-13. edit /etc/mfile-mason.conf to taste (it controls this instance of mfile-mason)
-14. ln -si [dist] /srv/www/mason/components
-15. zypper in mariadb mariadb-client
-16. set mysql root password
-16. edit /etc/my.cnf and put mysql root password under [client]
-17. dbinit/dbinit.sh (you may have to enter system root password)
-18. assuming [dist] ends in "/mfile-mason", point browser at http://my_virtual_hostname/mfile-mason/start.html
+10. rcapache2 restart
+11. point browser to http://[my_virtual_hostname]/test.html while praying to the Mason gods
+12. test file should display correctly; if there are problems, see /var/log/apache2/error_log
+13. unpack the mfile-mason distribution to [dist]
+14. cp [dist]/etc/mfile-mason.conf /etc
+15. chown ncutler.users /etc/mfile-mason.conf
+16. edit /etc/mfile-mason.conf to taste (it controls this instance of mfile-mason)
+17. ln -si [dist] /srv/www/mason/components
+18. zypper in mariadb mariadb-client
+19. set mysql root password
+20. edit /etc/my.cnf and put mysql root password under [client]
+21. dbinit/dbinit.sh (you may have to enter system root password)
+22. assuming [dist] ends in "/mfile-mason", point browser at http://my_virtual_hostname/mfile-mason/start.html
