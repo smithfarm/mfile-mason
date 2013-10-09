@@ -12,14 +12,23 @@ DIRNAME='mfile-mason'
 # ensure we are in that directory
 cd $DIRPREFIX$DIRNAME
 
+# get mfile version number
+VERNUM=`head -n 1 VERSION`
+TMPFILE=Changelog.tmp
+
+# parse version number using trick from stackoverflow.com
+oIFS="$IFS"      # IFS is bash's argument separator, normally a space
+IFS=.            # set it to a period
+set -- $VERNUM   # take contents of VERNUM as the new set of arguments
+IFS="$oIFS"      # return IFS the way it was
+
 # increment version number (using new set of arguments obtained just above)
 REV=`expr $3 + 1`    
 VERNUM="$1.$2.$REV"
 git tag ver-$VERNUM
 
-# get mfile version number
-VERNUM=`head -n 1 VERSION`
-TMPFILE=Changelog.tmp
+# overwrite mfile/VERSION with incremented version number 
+echo $VERNUM >VERSION
 
 # get release description
 echo "Changelog entry for this release:"
@@ -34,15 +43,6 @@ mv $TMPFILE Changelog
 ( mkdir -p ../mfile-releases && cd .. && tar cfz mfile-releases/mfile-$VERNUM.tar.gz \
 	--exclude-from $DIRNAME"EXCLUDE" \
 	$DIRNAME )
-
-# parse version number using trick from stackoverflow.com
-oIFS="$IFS"      # IFS is bash's argument separator, normally a space
-IFS=.            # set it to a period
-set -- $VERNUM   # take contents of VERNUM as the new set of arguments
-IFS="$oIFS"      # return IFS the way it was
-
-# overwrite mfile/VERSION with incremented version number 
-echo $VERNUM >VERSION
 
 # git
 git commit -a -m "$CHGLOGENTRY"

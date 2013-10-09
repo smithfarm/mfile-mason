@@ -62,6 +62,9 @@ MFILE.actOnState = function () {
    } else if (MFILE.state === "VIEW_COOKIE") {
          console.log("Calling MFILE.cookie.view()");
          MFILE.cookie.view();
+   } else if (MFILE.state === "GENERATE_MAC_ADDRESSES") {
+         console.log("Calling MFILE.generateMAC()");
+	 MFILE.generateMAC();
    } else {
       console.log("MFILE INTERNAL ERROR: Inconsistent state!");
    }

@@ -28,7 +28,7 @@ var processPassword = function () {
    } else {
       $('#result').html("*** PLEASE WAIT ***");
       $.ajax({
-         url: "ajax/check_password.mas",
+         url: "ajax/check_password.plx",
          type: "POST",
          dataType: "json",
          data: creds,

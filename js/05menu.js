@@ -35,7 +35,7 @@ MFILE.mainMenu = function () {
       if (isNumberKey(event)) {
          switch (event.which) {
             case 49:  // 1
-               MFILE.state = 'ADMINISTER_CODES';
+               MFILE.state = 'GENERATE_MAC_ADDRESSES';
                MFILE.actOnState();
                break;
             case 50:  // 2
