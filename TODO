@@ -2,10 +2,12 @@
 20131009 Implement MAC address generator
 20131009 Implement "admin users" table in mfiledb and allow these
 users to log in even when LDAP is disabled
+20131009 Implement LDAP server ping test
 
 # Long-term
 20131007 Package in OBS
 20131009 Fix Apache configuration to prevent user from calling a
-component directly
+component directly (change privs so subdirectories cannot be accessed
+remotely?)
 20131009 Implement "Hardware for decommissioning" app
 

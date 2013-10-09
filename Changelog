@@ -1,3 +1,4 @@
+2013-10-09 Version 0.6.6 Start work on MAC address generator
 2013-10-09 Version 0.6.5 LDAP authentication working
 2013-10-09 Version 0.6.5 Make apache configuration file more readable
 2013-10-09 Version 0.6.5 Fix apache config, introduce dhandler for a cleaner URL
