@@ -1,6 +1,0 @@
-<& /mfile-mason/start.html &>
-
-<%init>
- use mfile_init;
- mfile_init::LoadGlobal();
-</%init>
