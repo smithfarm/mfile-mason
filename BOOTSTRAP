@@ -2,6 +2,8 @@ Bootstrapping mfile-mason for development
 
 1. log in (as root) to computer running SUSE Linux
 2. zypper se -s mason, see that 'perl-HTML-Mason' package is installed
+   other packages needed:
+      perl-Logger-Syslog
 3. also see that you have 'apache2' installed, minimally configured (e.g. 'chkconfig apache2 on' or
    systemd equivalent) and running
 4. in /etc/sysconfig/apache2, see that APACHE_MODULES contains 'perl'

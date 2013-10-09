@@ -1,5 +1,11 @@
-20131007 Package in OBS
-20131008 test AJAX call (ajax/check_password.mas)
-20131008 LDAP authentication via AJAX call (../ldap-bind.plx)
+# Short-term
+20131009 Implement MAC address generator
+20131009 Implement "admin users" table in mfiledb and allow these
+users to log in even when LDAP is disabled
 
+# Long-term
+20131007 Package in OBS
+20131009 Fix Apache configuration to prevent user from calling a
+component directly
+20131009 Implement "Hardware for decommissioning" app
 

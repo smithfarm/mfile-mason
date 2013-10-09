@@ -1,8 +1,9 @@
-<%init>
+<%once>
   use mfile_init;
   mfile_init::LoadGlobal();
   my $Global = $mfile_init::Global;
-</%init>
+  info("start.html: globals loaded");
+</%once>
 
 <!DOCTYPE html>
 <html>

@@ -7,6 +7,7 @@
  use mfile_init;
  #use mfile_auth;
  my $Global = $mfile_init::Global;
+ info("Entering js/04auth.js");
 </%init>
 
 "use strict";   // ES5/strict
@@ -14,27 +15,34 @@
 
 
 var processPassword = function () {
-   var nam = $("#username").val();
-   var pwd = $("#password").val();
-   var uid;
-   
+   var creds = Object.create(null);
+
+   creds.nam = $("#username").val();
+   creds.pwd = $("#password").val();
+   MFILE.uid = undefined;
+
    // for now, let smithfarm in without password, so he can work
-   if (nam === "smithfarm") {
-      uid = nam;
+   if (creds.nam === "smithfarm") {
+      MFILE.uid = creds.nam;
+      MFILE.authSuccess();
    } else {
+      $('#result').html("*** PLEASE WAIT ***");
       $.ajax({
          url: "ajax/check_password.mas",
          type: "POST",
          dataType: "json",
-         data: nam,
-         success: function(result) { 
-            console.log("AJAX POST success, result is: '"+result.queryResult+"'");
-            if (result.queryResult === "success") {
-               $("#result").html("success");
-	       uid = nam;
+         data: creds,
+         success: function(r) { 
+            console.log("AJAX POST success, result is: '"+r.result+"'");
+            if (r.result === "success") {
+	       $('#result').html("");
+	       MFILE.uid = creds.nam;
+	       MFILE.authSuccess();
             } else {
-               $('#result').html("FAILED: '"+result.queryResult+"'");
-               return false;
+               console.log("Authentication attempt failed");
+               $('#result').html("FAILED: '"+r.result+"'");
+	       MFILE.state = 'LOGIN_FAIL';
+               MFILE.actOnState();
             }
          },
          error: function(xhr, status, error) {
@@ -42,17 +50,13 @@ var processPassword = function () {
          }
       });
    }
-      
-   if (uid) {
-      console.log("User authenticated, right?");
-      MFILE.uid = uid;
-      MFILE.cookie.create('mfileuid', MFILE.uid);
-      MFILE.sessionid = MFILE.cookie.read('_boss_session');
-      MFILE.state = 'MAIN_MENU';
-   } else {
-      console.log("Authentication attempt failed");
-      MFILE.state = 'LOGIN_FAIL';
-   }
+}
+
+MFILE.authSuccess = function () {
+   console.log("User authenticated, right?");
+   MFILE.cookie.create('mfileuid', MFILE.uid);
+   MFILE.sessionid = MFILE.cookie.read('_boss_session');
+   MFILE.state = 'MAIN_MENU';
    MFILE.actOnState();   
 }
 
@@ -64,7 +68,6 @@ MFILE.authenticateUser = function () {
    // If previous login attempt failed, let the user know
    if (MFILE.state === 'LOGIN_FAIL') {
       console.log("Previous login failed");
-      $('#mainarea').append("<br>Login failed. Please try again.");
    }
 
    // Clear the input fields and put cursor in "username" field 
