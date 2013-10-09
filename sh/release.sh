@@ -41,7 +41,7 @@ mv $TMPFILE Changelog
 
 # create tar archive of present release
 ( mkdir -p ../mfile-releases && cd .. && tar cfz mfile-releases/mfile-$VERNUM.tar.gz \
-	--exclude-from $DIRNAME"EXCLUDE" \
+	--exclude-from $DIRNAME"/EXCLUDE" \
 	$DIRNAME )
 
 # git

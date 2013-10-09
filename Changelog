@@ -1,3 +1,4 @@
+2013-10-09 Version 0.6.8 Correct minor bug in release.sh
 2013-10-09 Version 0.6.8 Generate MAC addresses randomly
 2013-10-09 Version 0.6.7 Test LDAP functionality
 2013-10-09 Version 0.6.6 Start work on MAC address generator
