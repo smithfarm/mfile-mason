@@ -8,7 +8,7 @@
 
 
 package mfile_init;
-use parent pw(Exporter);
+use parent qw(Exporter);
 
 our @EXPORT = qw($Global);
 our $Global = {};

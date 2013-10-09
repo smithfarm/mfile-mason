@@ -27,7 +27,7 @@ mv $TMPFILE Changelog
 
 # create tar archive of present release
 ( mkdir -p ../mfile-releases && cd .. && tar cfz mfile-releases/mfile-$VERNUM.tar.gz \
-	--exclude-from $DIRPREFIX"EXCLUDE" \
+	--exclude-from "EXCLUDE" \
 	$DIRNAME )
 
 # parse version number using trick from stackoverflow.com

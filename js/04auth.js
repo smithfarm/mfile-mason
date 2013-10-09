@@ -5,7 +5,7 @@
 
 <%init>
  use mfile_init;
- use mfile_auth;
+ #use mfile_auth;
  my $Global = $mfile_init::Global;
 </%init>
 

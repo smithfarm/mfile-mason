@@ -1,10 +1,7 @@
-<%flags>
- inherit => 'init.mas'
-</%flags>
-
 <%init>
- use mfile_init;
- my $Global = $mfile_init::Global;
+  use mfile_init;
+  mfile_init::LoadGlobal();
+  my $Global = $mfile_init::Global;
 </%init>
 
 <!DOCTYPE html>
