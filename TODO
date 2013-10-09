@@ -1,8 +1,10 @@
 # Short-term
-20131009 Implement MAC address generator
+20131009 Implement MAC address generator with random addresses
+20131009 Add database stuff to MAC address generator
 20131009 Implement "admin users" table in mfiledb and allow these
 users to log in even when LDAP is disabled
-20131009 Implement LDAP server ping test
+20131009 "Mouse users click here" button to display help text about
+how the cursor must be visible in input field, press TAB, etc.
 
 # Long-term
 20131007 Package in OBS
