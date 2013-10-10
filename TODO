@@ -1,5 +1,4 @@
 # Short-term
-20131009 Implement MAC address generator with random addresses
 20131009 Add database stuff to MAC address generator
 20131009 Implement "admin users" table in mfiledb and allow these
 users to log in even when LDAP is disabled
@@ -12,4 +11,6 @@ how the cursor must be visible in input field, press TAB, etc.
 component directly (change privs so subdirectories cannot be accessed
 remotely?)
 20131009 Implement "Hardware for decommissioning" app
+20131010 Come up with some way of dealing with DBI errors (raise an
+exception?)
 

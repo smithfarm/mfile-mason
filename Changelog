@@ -1,3 +1,4 @@
+2013-10-10 Version 0.6.9 Login logic
 2013-10-09 Version 0.6.8 Split out tarball creation into a separate script
 2013-10-09 Version 0.6.8 Correct minor bug in release.sh
 2013-10-09 Version 0.6.8 Generate MAC addresses randomly

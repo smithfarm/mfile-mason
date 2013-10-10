@@ -10,11 +10,14 @@
 package mfile_init;
 use parent qw(Exporter);
 
-our @EXPORT = qw($Global);
+our @EXPORT = qw($Global lookup_user);
 our $Global = {};
 
 use DBI;
 use Config::Simple;
+use Logger::Syslog;
+
+logger_prefix("MFILE");
 
 # get mfile version number (hardcoded in VERSION file)
 sub _get_mfile_version {
@@ -66,7 +69,30 @@ sub _get_ldap_configuration {
    $Global->{'LdapFilter'} = $Config->{'LdapFilter'};
 
 }
-   
+
+# validate/look up a username in the local db
+sub lookup_user {
+   my $name = shift;
+
+   my ($id, $sql, $sth);
+   $sql = "SELECT id FROM users WHERE name = ?";
+   $sth = $Global->{'dbh'}->prepare($sql);
+   # should check $sth here
+   debug("Attempting to look up user $name in local db");
+   if ( $sth->execute($name) ) {
+      $id = $sth->fetchrow_array();
+      if ($id) {
+         debug("Found something; looks like $name has id $id");
+      } else {
+         debug("User $name not found in local db");
+      }
+   } else {
+      $id = undef;
+      error("SELECT failed on user $user: " . $DBI::errstr);
+   }
+   return $id;
+}
+
 # load configuration parameters from file
 sub LoadGlobal {
 
