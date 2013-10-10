@@ -12,7 +12,7 @@ CREATE USER 'mfile'@'localhost' IDENTIFIED BY 'mfile';
 GRANT ALL ON mfiledb.* TO 'mfile'@'localhost';
 CREATE TABLE mfiledb.users (
    id MEDIUMINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-   name CHAR(32) NOT NULL UNIQUE,
+   name CHAR(32) CHARACTER SET ascii NOT NULL UNIQUE,
    admin BOOLEAN NOT NULL,
    disabled BOOLEAN NOT NULL,
    created DATETIME NOT NULL,
@@ -24,3 +24,5 @@ CREATE TABLE mfiledb.mac_addresses (
    owner_id MEDIUMINT UNSIGNED NOT NULL,
    ts TIMESTAMP
 );
+INSERT INTO mfiledb.users (name, admin, disabled, created) 
+   VALUES ('smithfarm', 1, 0, NOW());

@@ -22,34 +22,29 @@ var processPassword = function () {
    MFILE.uid = undefined;
 
    // for now, let smithfarm in without password, so he can work
-   if (creds.nam === "smithfarm") {
-      MFILE.uid = creds.nam;
-      MFILE.authSuccess();
-   } else {
-      $('#result').html("*** PLEASE WAIT ***");
-      $.ajax({
-         url: "/mfile-mason/ajax/login.plx",
-         type: "POST",
-         dataType: "json",
-         data: creds,
-         success: function(r) { 
-            console.log("AJAX POST success, result is: '"+r.result+"'");
-            if (r.result === "success") {
-	       $('#result').html("");
-	       MFILE.uid = creds.nam;
-	       MFILE.authSuccess();
-            } else {
-               console.log("Authentication attempt failed");
-               $('#result').html("FAILED: '"+r.result+"'");
-	       MFILE.state = 'LOGIN_FAIL';
-               MFILE.actOnState();
-            }
-         },
-         error: function(xhr, status, error) {
-            $("#result").html("AJAX ERROR: "+xhr.status);
+   $('#result').html("*** PLEASE WAIT ***");
+   $.ajax({
+      url: "/mfile-mason/ajax/login.plx",
+      type: "POST",
+      dataType: "json",
+      data: creds,
+      success: function(r) { 
+         console.log("AJAX POST success, result is: '"+r.result+"'");
+         if (r.result === "success") {
+            $('#result').html("");
+            MFILE.uid = creds.nam;
+            MFILE.authSuccess();
+         } else {
+            console.log("Authentication attempt failed");
+            $('#result').html("FAILED: '"+r.result+"'");
+            MFILE.state = 'LOGIN_FAIL';
+            MFILE.actOnState();
          }
-      });
-   }
+      },
+      error: function(xhr, status, error) {
+         $("#result").html("AJAX ERROR: "+xhr.status);
+      }
+   });
 }
 
 MFILE.authSuccess = function () {

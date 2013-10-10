@@ -10,7 +10,7 @@ use mfile_init;
 
 logger_prefix("MFILE");
 
-sub _authenticate {
+sub _authenticate_LDAP {
 
    my $user = shift;
    my $passwd = shift;
@@ -80,6 +80,40 @@ sub _authenticate {
    }
 }
 
+sub _authenticate_DB {
+   my $user = shift;
+   my $passwd = shift;
+
+   if ($passwd) {
+      info("Password is non-empty");
+   } else {
+      info("Password is empty");
+   }
+
+   # Look up the user in the DB and if they are an admin, let them in
+   # without checking the password
+   my ($sql, $sth);
+   $sql = "SELECT admin FROM users WHERE name = ?";
+   $sth = $Global->{'dbh'}->prepare($sql);
+   # should check $sth here
+   debug("Attempting to look up admin field for user $user");
+   if ( $sth->execute($user) ) {
+      my $admin = $sth->fetchrow_array();
+      debug("Value of admin field is $admin");
+      if ($admin) {
+         debug("Found something; looks like this user is an admin");
+	 return "success";
+      } else {
+         debug("Found something, but looks like this user is not an admin");
+	 return "bad credentials";
+      }
+   } else { 
+      error("SELECT query failed in _authenticate_DB");
+      # FATAL ERROR - THROW EXCEPTION
+      return "INTERNAL ERROR in _authenticate_db";
+   }
+}
+
 sub _update_userdb {
 
    my $name = shift;
@@ -125,6 +159,8 @@ sub _update_userdb {
    }
 }
 
+my $Global = $mfile_init::Global;
+
 # Get POST parameters
 my $cgi = CGI->new;
 my $user = $cgi->param("nam");
@@ -132,12 +168,25 @@ info("Username is '$user'");
 my $passwd = $cgi->param("pwd");
 
 # Authenticate the user
-my $retval = _authenticate($user, $passwd, $mfile_init::Global);
+my $retval; 
+if ($Global->{'LdapEnable'} eq 'yes') {
+   $retval = _authenticate_LDAP($user, $passwd, $Global);
+   if ($retval ne 'success') {
+      info("LDAP authentication failed. Falling back to local user DB.");
+      $retval = _authenticate_DB($user, $passwd);
+   }
+} else {
+   info("LDAP disabled. Authenticating against local user DB.");
+   $retval = _authenticate_DB($user, $passwd);
+}
 
 # Update local user database
 if ($retval eq "success") {
+   info("User $user successfully authenticated");
    # check if user is in our database and, if not, add them
-   _update_userdb($user, $mfile_init::Global);
+   _update_userdb($user, $Global);
+} else {
+   info("Authentication failed for user $user");
 }
 
 # Send result back to client
