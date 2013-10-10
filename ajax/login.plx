@@ -27,7 +27,7 @@ sub _authenticate_LDAP {
    my $filter = $Global->{'LdapFilter'};
 
    debug("Attempting connection to LDAP server $server");
-   my $ldap = Net::LDAP->new( $server ) or die "$@";
+   my $ldap = Net::LDAP->new( $server ) or return "$@";
    
    if (defined($filter) && ($filter ne "()")) {
        $filter = Net::LDAP::Filter->new(   "(&" .
@@ -172,8 +172,7 @@ my $retval;
 if ($Global->{'LdapEnable'} eq 'yes') {
    $retval = _authenticate_LDAP($user, $passwd, $Global);
    if ($retval ne 'success') {
-      info("LDAP authentication failed. Falling back to local user DB.");
-      $retval = _authenticate_DB($user, $passwd);
+      info("LDAP authentication failed ($retval)");
    }
 } else {
    info("LDAP disabled. Authenticating against local user DB.");

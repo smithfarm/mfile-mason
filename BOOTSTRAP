@@ -1,15 +1,27 @@
 Bootstrapping mfile-mason for development
 
-1. log in (as root) to computer running SUSE Linux
-2. zypper se -s mason, see that 'perl-HTML-Mason' package is installed
-   other packages needed:
+1. log in (as root) to computer running openSUSE 12.3
+2.a. enable the 'devel:languages:perl' repository 
+2.b. install the following packages:
+      apache2
+      apache2-mod_perl
+      mariadb
+      mariadb-client
+      perl-HTML-Mason
+      perl-Log-Any
       perl-Logger-Syslog
-3. also see that you have 'apache2' installed, minimally configured (e.g. 'chkconfig apache2 on' or
-   systemd equivalent) and running
+      perl-CGI
+      perl-DBI (from devel:languages:perl)
+      perl-DBD-mysql (from devel:languages:perl)
+      perl-Config-Simple
+      perl-JSON
+      perl-ldap
+3. chkconfig apache2 on; chkconfig mysql on
 4. in /etc/sysconfig/apache2, see that APACHE_MODULES contains 'perl'
 5. set up DNS, /etc/hosts or whatever for your Mason virtual host
 6. in /etc/apache2/vhosts.d, create a configuration file for the
    virtual host with the contents provided in [dist]/etc/vhost.conf
+   and do 'rcapache2 start'
 7. mkdir -p /srv/www/mason/components
 8. chown -R wwwrun.www /srv/www/mason
 9. create a test file /srv/www/mason/components/test.html

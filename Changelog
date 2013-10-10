@@ -1,3 +1,4 @@
+2013-10-10 Version 0.6.10 Updated BOOTSTRAP, changed authentication fallback policy
 2013-10-10 Version 0.6.10 Implement authentication fallback to local user DB
 2013-10-10 Version 0.6.9 Modify gen_mac to use database instead of random number
 2013-10-10 Version 0.6.9 Implement login and logout functions
