@@ -20,7 +20,7 @@ var MFILE = Object.create(null);
 MFILE.state = "NOT_LOGGED_IN";
 
 MFILE.html = {
-   auth_dialog: "<br><br>Innerweb credentials<br><br>Username: <input id='username' size='15' maxlength='9' /><br>Password: <input id='password' type='password' size='20' maxlength='20' /><br><br><br>&nbsp;",
+   auth_dialog: "<br><br>Innerweb credentials<br><br>Username <input id='username' size='15' maxlength='9' /><br>Password <input id='password' type='password' size='20' maxlength='20' /><br><br><br>&nbsp;",
    main_menu: "<H2>Main menu</H2>1. Generate MAC addresses<br>2.  Administer codes<br>3. Test LDAP<br>4. View cookies<br>5. Rest in the Self<br>6.  Logout<br><br>Your selection: <input id='getchar' size=2 maxlength=1 style='width: 10px;'>&nbsp;</input><br><br><br>",
    code_box: "Code: <textarea id='code' name='code' rows=1 cols=8 maxlength=8 style='height: 22px'></textarea>",
    change_code: "<h2>Administer codes</h2>Cursor now in the 'Code:' field. Use function keys shown above.<br><br><br><br>",

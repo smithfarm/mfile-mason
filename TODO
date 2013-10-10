@@ -1,10 +1,4 @@
 # Short-term
-20131010 At login, put user id of logged-in user into Global hash
-20131009 Add database stuff to MAC address generator:
-         - insert a dummy record
-	 - fetch the dummy record to get its id
-	 - update the record with MAC address, username, timestamp,
-	   etc.
 20131009 Allow "admin users" to log in without checking password
 20131009 "Mouse users click here" button to display help text about
 how the cursor must be visible in input field, press TAB, etc.

@@ -1,3 +1,4 @@
+2013-10-10 Version 0.6.9 Modify gen_mac to use database instead of random number
 2013-10-10 Version 0.6.9 Implement login and logout functions
 2013-10-10 Version 0.6.9 Login logic
 2013-10-09 Version 0.6.8 Split out tarball creation into a separate script

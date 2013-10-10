@@ -95,14 +95,31 @@ sub lookup_user {
 
 # log user in
 sub login {
-   $Global->{'username'} = shift;
-   $Global->{'userid'} = shift;
+   my $username = shift;
+   my $userid = shift;
+
+   debug("Logging in user $username with USERID $userid");
+   $Global->{'username'} = $username;
+   $Global->{'userid'} = $userid;
 }
 
 # log user out
 sub logout {
-   delete $Global->{'username'};
-   delete $Global->{'userid'};
+   my $retval;
+   if (exists $mfile_init::Global->{'username'}) {
+      delete $mfile_init::Global->{'username'};
+   }
+   if (exists $mfile_init::Global->{'userid'}) {
+      delete $mfile_init::Global->{'userid'};
+   }
+
+   if ( exists $mfile_init::Global->{'username'} or
+        exists $mfile_init::Global->{'userid'} ) {
+      $retval = 0;
+   } else {
+      $retval = 1;
+   }
+   return $retval;
 }
 
 # load configuration parameters from file

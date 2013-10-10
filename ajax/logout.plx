@@ -6,18 +6,10 @@ use mfile_init;
 
 logger_prefix("MFILE");
 
-if (exists $mfile_init::Global->{'username'}) {
-   delete $mfile_init::Global->{'username'};
-}
-if (exists $mfile_init::Global->{'userid'}) {
-   delete $mfile_init::Global->{'userid'};
-}
-
-if ( exists $mfile_init::Global->{'username'} or
-     exists $mfile_init::Global->{'userid'} ) {
-   $retval = 'failed to logout user on server';
-} else {
+if (mfile_init::logout()) {
    $retval = 'success';
+} else {
+   $retval = 'failed to logout user on server';
 }
 
 # return result to server

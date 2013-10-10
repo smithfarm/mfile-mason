@@ -28,7 +28,7 @@ var processPassword = function () {
    } else {
       $('#result').html("*** PLEASE WAIT ***");
       $.ajax({
-         url: "ajax/login.plx",
+         url: "/mfile-mason/ajax/login.plx",
          type: "POST",
          dataType: "json",
          data: creds,
@@ -63,7 +63,7 @@ MFILE.authSuccess = function () {
 MFILE.logout = function () {
    // Clear username and password stored on server
    $.ajax({
-         url: "ajax/logout.plx",
+         url: "/mfile-mason/ajax/logout.plx",
          type: "POST",
          dataType: "json",
          success: function(r) { 

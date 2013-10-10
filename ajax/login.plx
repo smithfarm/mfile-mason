@@ -105,6 +105,12 @@ sub _update_userdb {
       $id = mfile_init::lookup_user($name);
    }
 
+   # User is now logged in for sure 
+   debug("Calling mfile_init::login for user $name, USERID $id");
+   mfile_init::login($name, $id);
+   # error-checking here?
+
+   # Update the last_login field
    $sql = "UPDATE users SET last_login = NOW() WHERE id = ?";
    $sth = $Global->{'dbh'}->prepare($sql);
    # should check $sth here
@@ -138,5 +144,4 @@ if ($retval eq "success") {
 my %result = ('result' => $retval);
 my $json_text = encode_json \%result;
 print $json_text;
-
 </%perl>

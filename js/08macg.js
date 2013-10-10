@@ -17,7 +17,7 @@ MFILE.generateMAC = function () {
          MFILE.actOnState();
       } else {
          $.ajax({
-            url: "ajax/gen_mac.plx",
+            url: "/mfile-mason/ajax/gen_mac.plx",
             type: "POST",
             dataType: "json",
             success: function(r) { 

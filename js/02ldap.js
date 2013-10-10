@@ -6,7 +6,7 @@ MFILE.testLDAP = function () {
    $("#mainarea").append("Pinging "+MFILE.ldap.server+" ... see below for result");
    $('#result').html("*** PLEASE WAIT ***");
    $.ajax({
-         url: "ajax/ldap_test.plx",
+         url: "/mfile-mason/ajax/ldap_test.plx",
          type: "POST",
          dataType: "json",
          data: MFILE.ldap,
