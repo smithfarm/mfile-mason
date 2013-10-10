@@ -10,7 +10,7 @@
 package mfile_init;
 use parent qw(Exporter);
 
-our @EXPORT = qw($Global lookup_user);
+our @EXPORT = qw($Global lookup_user login logout);
 our $Global = {};
 
 use DBI;
@@ -91,6 +91,18 @@ sub lookup_user {
       error("SELECT failed on user $user: " . $DBI::errstr);
    }
    return $id;
+}
+
+# log user in
+sub login {
+   $Global->{'username'} = shift;
+   $Global->{'userid'} = shift;
+}
+
+# log user out
+sub logout {
+   delete $Global->{'username'};
+   delete $Global->{'userid'};
 }
 
 # load configuration parameters from file

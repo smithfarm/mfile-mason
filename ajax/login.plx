@@ -26,6 +26,7 @@ sub _authenticate {
    my $base = $Global->{'LdapBase'};
    my $filter = $Global->{'LdapFilter'};
 
+   debug("Attempting connection to LDAP server $server");
    my $ldap = Net::LDAP->new( $server ) or die "$@";
    
    if (defined($filter) && ($filter ne "()")) {

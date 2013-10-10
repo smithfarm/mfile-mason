@@ -28,7 +28,7 @@ var processPassword = function () {
    } else {
       $('#result').html("*** PLEASE WAIT ***");
       $.ajax({
-         url: "ajax/check_password.plx",
+         url: "ajax/login.plx",
          type: "POST",
          dataType: "json",
          data: creds,
@@ -58,6 +58,21 @@ MFILE.authSuccess = function () {
    MFILE.sessionid = MFILE.cookie.read('_boss_session');
    MFILE.state = 'MAIN_MENU';
    MFILE.actOnState();   
+}
+
+MFILE.logout = function () {
+   // Clear username and password stored on server
+   $.ajax({
+         url: "ajax/logout.plx",
+         type: "POST",
+         dataType: "json",
+         success: function(r) { 
+            console.log("AJAX POST success, result is: '"+r.result+"'");
+         },
+         error: function(xhr, status, error) {
+            $("#result").html("AJAX ERROR in MFILE.logout: "+xhr.status);
+         }
+      });
 }
 
 MFILE.authenticateUser = function () {
