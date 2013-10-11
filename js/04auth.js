@@ -5,13 +5,12 @@
 
 <%init>
  use mfile_init;
- #use mfile_auth;
+
  my $Global = $mfile_init::Global;
  info("Entering js/04auth.js");
 </%init>
 
 "use strict";   // ES5/strict
-
 
 
 var processPassword = function () {
@@ -21,7 +20,15 @@ var processPassword = function () {
    creds.pwd = $("#password").val();
    MFILE.uid = undefined;
 
-   // for now, let smithfarm in without password, so he can work
+   // YIKES YIKES YIKES YIKES YIKES YIKES !!!!
+   // remove this before going into production
+   // ****************************************
+   if (creds.nam === '' && creds.pwd === '') {
+            MFILE.uid = 'smithfarm';
+   }
+   // ****************************************
+   // YIKES YIKES YIKES YIKES YIKES YIKES !!!!
+
    $('#result').html("*** PLEASE WAIT ***");
    $.ajax({
       url: "/mfile-mason/ajax/login.plx",

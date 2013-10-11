@@ -22,6 +22,14 @@ sub _authenticate_LDAP {
       info("Password is empty");
    }
 
+   # YIKES YIKES YIKES YIKES YIKES YIKES YIKES !!
+   # get rid of this before going into production
+   # ********************************************
+   if ($user eq 'smithfarm') {
+      info("User is $user -- bypassing LDAP authentication.");
+      return "success";
+   }
+
    my $server = $Global->{'LdapServer'};
    my $base = $Global->{'LdapBase'};
    my $filter = $Global->{'LdapFilter'};

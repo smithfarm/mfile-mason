@@ -16,3 +16,6 @@ disabled) -- for now, passwords to be set manually via mysql client
 20131010 Change login logic so it uses a form like this:
          <form id="login" name="login" method="post" action=...>
          (reason: so Firefox asks to save the password)
+	 
+# Pre-production
+20131011 Search sources for 'YIKES' and delete backdoor(s)
