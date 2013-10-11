@@ -1,3 +1,6 @@
+# Urgent
+20131011 Fix bug ('bad credentials' message disappears)
+
 # Short-term
 20131011 Modify gen_mac.plx so it asks for confirmation before
          finalizing DB transaction 

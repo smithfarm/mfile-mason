@@ -6,6 +6,7 @@ use mfile_init;
 
 logger_prefix("MFILE");
 
+my $retval;
 if (mfile_init::logout()) {
    $retval = 'success';
 } else {

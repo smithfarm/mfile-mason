@@ -34,14 +34,13 @@ MFILE.actOnState = function () {
    console.log("Acting on state "+MFILE.state);
    if (MFILE.state === "LOST") {
       $("#mainarea").html("<br><br><h1>Invalid URL</h1>");
-   } else if (MFILE.state === "NOT_LOGGED_IN") {
-         $('#userid').html('');
-         $('#topmesg').html('');
-         retval = MFILE.login();
-         console.log("MFILE.login() returned "+retval);
-	 MFILE.state = "LOGGING_IN";
+//   } else if (MFILE.state === "NOT_LOGGED_IN") {
+//         $('#userid').html('');
+//         $('#topmesg').html('');
+//         retval = MFILE.login();
+//         console.log("MFILE.login() returned "+retval);
+//	 MFILE.state = "LOGGING_IN";
    } else if (MFILE.state === "LOGIN_FAIL") {
-         $('#mainarea').html("Not logged in");
          retval = MFILE.login();
          console.log("MFILE.login() returned "+retval);
    } else if (MFILE.state === "MAIN_MENU") {
@@ -49,7 +48,7 @@ MFILE.actOnState = function () {
          MFILE.sessionid = MFILE.cookie.read('mfilesessionid');
          $("#userid").html("Username: "+MFILE.uid);
          console.log("Logged in! Session cookie: "+MFILE.sessionid);
-         retval = MFILE.mainMenu();
+         $("#mainarea").load("/mfile-mason/html/main-menu.mas");
    } else if (MFILE.state === "ADMINISTER_CODES") {
          console.log("Calling MFILE.administerCodes()");
          MFILE.administerCodes();

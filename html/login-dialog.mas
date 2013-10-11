@@ -48,9 +48,8 @@ var processPassword = function (nam, pwd) {
             MFILE.authSuccess();
          } else {
             console.log("Authentication attempt failed");
+	    window.location.reload();
             $('#result').html("FAILED: '"+r.result+"'");
-            MFILE.state = 'LOGIN_FAIL';
-            MFILE.actOnState();
          }
       },
       error: function(xhr, status, error) {
@@ -60,32 +59,24 @@ var processPassword = function (nam, pwd) {
 }
 
 MFILE.authSuccess = function () {
-   console.log("User authenticated, right?");
+   console.log("User "+MFILE.uid+" authenticated, right?");
    MFILE.cookie.create('mfileuid', MFILE.uid);
-   MFILE.sessionid = MFILE.cookie.read('_boss_session');
    MFILE.state = 'MAIN_MENU';
    MFILE.actOnState();   
 }
 
-MFILE.logout = function () {
-   // Clear username and password stored on server
-   $.ajax({
-         url: "/mfile-mason/ajax/logout.plx",
-         type: "POST",
-         dataType: "json",
-         success: function(r) { 
-            console.log("AJAX POST success, result is: '"+r.result+"'");
-         },
-         error: function(xhr, status, error) {
-            $("#result").html("AJAX ERROR in MFILE.logout: "+xhr.status);
-         }
-      });
+MFILE.authFailure = function (msg) {
+   console.log("User failed to authenticate.");
+   MFILE.state = 'LOGIN_FAILED';
+   MFILE.login_failed_message = msg;
+   MFILE.actOnState();
 }
 
 MFILE.login = function () {
    
    var nam, pwd;
 
+   $('#userid').html('');
    $('input[name="nam"]').val('').focus();
    $('input[name="pwd"]').val('');
 
