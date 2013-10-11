@@ -2,7 +2,8 @@
  inherit => undef
 </%flags>
 
-<form id="loginform" action="/mfile-mason/ajax/login.plx" method="post">
+<iframe id="temp" name="temp" style="display:none"></iframe>
+<form target="temp" id="loginform" onsubmit="processPassword()">
    <br>
    <br>
    Innerweb credentials<br>
@@ -20,8 +21,8 @@
 var processPassword = function (nam, pwd) {
    var creds = Object.create(null);
 
-   creds.nam = nam;
-   creds.pwd = pwd;
+   creds.nam = $('input[name="nam"]').val();
+   creds.pwd = $('input[name="pwd"]').val();
    MFILE.uid = undefined;
 
    // YIKES YIKES YIKES YIKES YIKES YIKES !!!!
@@ -104,7 +105,8 @@ MFILE.login = function () {
       if (event.keyCode === 13) {
          event.preventDefault();
 	 pwd = $('input[name="pwd"]').val();
-	 processPassword(nam, pwd);
+	 //processPassword(nam, pwd);
+	 $('#loginform').submit();
       }
    });
 }
