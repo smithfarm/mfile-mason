@@ -1,3 +1,4 @@
+2013-10-11 Version 0.6.10 Split gen_mac, restructure login
 2013-10-11 Version 0.6.10 Restore smithfarm's backdoor
 2013-10-10 Version 0.6.10 Updated BOOTSTRAP, changed authentication fallback policy
 2013-10-10 Version 0.6.10 Implement authentication fallback to local user DB

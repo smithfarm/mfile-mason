@@ -1,3 +1,7 @@
+<%flags>
+  inherit => undef
+</%flags>
+
 <%once>
   use mfile_init;
   mfile_init::LoadGlobal();
@@ -22,7 +26,7 @@
 <script><& /mfile-mason/js/01init.js &></script>
 <script><& /mfile-mason/js/02ldap.js &></script>
 <script><& /mfile-mason/js/03cook.js &></script>
-<script><& /mfile-mason/js/04auth.js &></script>
+<script><& /mfile-mason/js/04free.js &></script>
 <script><& /mfile-mason/js/05menu.js &></script>
 <script><& /mfile-mason/js/06code.js &></script>
 <script><& /mfile-mason/js/07file.js &></script>
@@ -45,8 +49,13 @@
 </div>
 
 <div class="mainarea" id="mainarea">
-mainarea placeholder (activate Firebug console and then reload page to
-see what's wrong)
+% if (exists $Global->{'username'} or length $Global->{'username'} == 0) {
+%    debug("start.html: User not logged in");
+%    $m->comp( '/mfile-mason/html/login-dialog.mas' );
+% } else {
+%    debug("start.html: User is " . $Global->{'username'});
+%    $m->comp( '/mfile-mason/html/main-menu.mas' );
+% }
 </div>
 
 <div class="single" id="bothelp">

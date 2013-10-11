@@ -1,23 +1,27 @@
-// 04auth.js
-// 20130510 smithfarm
-//
-// MFILE.authenticateUser() function
+<%flags>
+ inherit => undef
+</%flags>
 
-<%init>
- use mfile_init;
+<form id="loginform" action="/mfile-mason/ajax/login.plx" method="post">
+   <br>
+   <br>
+   Innerweb credentials<br>
+   <br>
+   Username <input name='nam' size='15' maxlength='9' /><br>
+   Password <input name='pwd' type='password' size='20' maxlength='20' /><br>
+   <br>
+   <br>
+   &nbsp;
+</form>
 
- my $Global = $mfile_init::Global;
- info("Entering js/04auth.js");
-</%init>
-
+<script>
 "use strict";   // ES5/strict
 
-
-var processPassword = function () {
+var processPassword = function (nam, pwd) {
    var creds = Object.create(null);
 
-   creds.nam = $("#username").val();
-   creds.pwd = $("#password").val();
+   creds.nam = nam;
+   creds.pwd = pwd;
    MFILE.uid = undefined;
 
    // YIKES YIKES YIKES YIKES YIKES YIKES !!!!
@@ -77,36 +81,36 @@ MFILE.logout = function () {
       });
 }
 
-MFILE.authenticateUser = function () {
+MFILE.login = function () {
    
-   // Throw up the authentication dialog
-   $('#mainarea').html(MFILE.html.auth_dialog);
+   var nam, pwd;
 
-   // If previous login attempt failed, let the user know
-   if (MFILE.state === 'LOGIN_FAIL') {
-      console.log("Previous login failed");
-   }
-
-   // Clear the input fields and put cursor in "username" field 
-   $("#username").val('');
-   $("#password").val('');
-   $("#username").focus();
+   $('input[name="nam"]').val('').focus();
+   $('input[name="pwd"]').val('');
 
    // Set up a callback function to listen for the <ENTER> key to be pressed in "username" field
-   $("#username").keydown(function(event) {
+   $('input[name="nam"]').keydown(function(event) {
       logKeyPress(event);
       if (event.keyCode === 13) {
          event.preventDefault();
-         $("#password").focus();
+	 nam = $('input[name="nam"]').val();
+         $('input[name="pwd"]').focus();
       }
    });
 
    // Set up a callback function to listen for the <ENTER> key to be pressed in "password" field
-   $("#password").keydown(function(event) {
+   $('input[name="pwd"]').keydown(function(event) {
       logKeyPress(event);
       if (event.keyCode === 13) {
          event.preventDefault();
-         processPassword();
+	 pwd = $('input[name="pwd"]').val();
+	 processPassword(nam, pwd);
       }
    });
 }
+
+console.log("Document ready");
+MFILE.login();
+</script>
+
+

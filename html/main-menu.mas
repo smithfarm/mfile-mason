@@ -1,0 +1,14 @@
+% debug("Entering main-menu.mas");
+
+<H2>Main menu</H2>
+1. Generate MAC addresses<br>
+2. Administer codes<br>
+3. Test LDAP<br>
+4. View cookies<br>
+5. Rest in the Self<br>
+6. Logout<br><br>
+Your selection: <input id='getchar' size=2 maxlength=1 style='width: 10px;'>&nbsp;</input><br><br><br>
+
+<script>
+   $("getchar").focus();
+</script>

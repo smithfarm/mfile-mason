@@ -1,21 +1,32 @@
 # Short-term
-20131009 Allow "admin users" to log in without checking password
-20131009 "Mouse users click here" button to display help text about
-how the cursor must be visible in input field, press TAB, etc.
+20131011 Modify gen_mac.plx so it asks for confirmation before
+         finalizing DB transaction 
+	 (use $('#mainarea').load('gen_mac_screen.mas') and callback
+	 to generate the MAC address
+20131011 Add code to start.html <%init>: if we're in a transaction,
+         roll it back (since the transaction would hang otherwise)
+20131011 Change implementation of login screen to use:
+         $('#mainarea').load('login_screen.mas');
+	 and use a callback to do initialization or, if already
+	 initialized, then just reset DB connection
 
 # Long-term
 20131007 Package in OBS
-20131009 Fix Apache configuration to prevent user from calling a
-component directly (change privs so subdirectories cannot be accessed
-remotely?)
-20131009 Implement "Hardware for decommissioning" app
+20131009 "Mouse users click here" button to display help text about
+	 how the cursor must be visible in input field, press TAB,
+	 etc.  20131009 Fix Apache configuration to prevent user from
+	 calling a component directly (change privs so subdirectories
+	 cannot be accessed remotely?)
+20131009 Implement "Hardware for decommissioning" plugin
 20131010 Come up with some way of dealing with DBI errors (raise an
-exception?)
+         exception?)
 20131010 Add password field to users table (for use when LDAP is
-disabled) -- for now, passwords to be set manually via mysql client
+	 disabled) -- for now, passwords to be set manually via mysql
+	 client
 20131010 Change login logic so it uses a form like this:
          <form id="login" name="login" method="post" action=...>
          (reason: so Firefox asks to save the password)
+20131011 Implement "RT Spam Domains" plugin
 	 
 # Pre-production
 20131011 Search sources for 'YIKES' and delete backdoor(s)

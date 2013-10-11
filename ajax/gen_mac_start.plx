@@ -1,12 +1,13 @@
 <%perl>
 #
-# gen_mac.plx
+# gen_mac_start.plx
 #
 # Generate a random number between 0 and 16^6, print it out in decimal
 # and hexadecimal, and then make a MAC address out of it.
 #
 # 20130616 ncutler
 # 20131009 ncutler (adapted for use with HTML::Mason)
+# 20131011 ncutler (split in two, added transactions)
 
 use JSON;
 use mfile_init;
@@ -29,8 +30,22 @@ sub gen_mac {
 }
 
 my $Global = $mfile_init::Global;
-# Insert a dummy record into mac_addresses table
 my ($sql, $sth);
+
+# Start transaction
+$sql = "START TRANSACTION";
+$sth = $Global->{'dbh'}->prepare($sql);
+if ( $sth->execute ) {
+   # success
+   info("BEGIN WORK: ok");
+} else {
+   # failure
+   error("BEGIN WORK failed: " . $DBI::errstr);
+   # TERMINATE - FATAL ERROR
+}
+
+
+# Insert a dummy record into mac_addresses table
 $sql = "INSERT INTO mac_addresses (address, owner_id) VALUES ('000dummy', 0)";
 $sth = $Global->{'dbh'}->prepare($sql);
 # should check $sth here
@@ -67,22 +82,9 @@ if ( $sth->execute ) {
 # Generate the MAC address
 my $mac = gen_mac($id);
 
-# Update the record with MAC address, username, timestamp, etc.
-$sql = "UPDATE mac_addresses SET address = ?, owner_id = ? WHERE address = '000dummy'";
-$sth = $Global->{'dbh'}->prepare($sql);
-# should check $sth here
-debug("Attempting to update dummy record with MAC $mac and USERID " . $Global->{'userid'});
-if ( $sth->execute($mac, $Global->{'userid'}) ) {
-   # success
-   info("Dummy record updated");
-} else {
-   # failure
-   error("UPDATE failed on dummy with MAC $mac and USERID " . $Global->{'userid'} . ": " . $DBI::errstr);
-   # TERMINATE - FATAL ERROR
-}
-
 # Return the generated MAC address to the client
-my $retval = "MAC: $mac";
+debug("gen_mac_start.html returning $mac");
+my $retval = "$mac";
 my %result = ('result' => $retval);
 my $json_text = encode_json \%result;
 print $json_text;

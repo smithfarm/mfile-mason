@@ -37,13 +37,13 @@ MFILE.actOnState = function () {
    } else if (MFILE.state === "NOT_LOGGED_IN") {
          $('#userid').html('');
          $('#topmesg').html('');
-         $('#mainarea').html("Not logged in");
-         retval = MFILE.authenticateUser();
-         console.log("MFILE.authenticateUser() returned "+retval);
+         retval = MFILE.login();
+         console.log("MFILE.login() returned "+retval);
+	 MFILE.state = "LOGGING_IN";
    } else if (MFILE.state === "LOGIN_FAIL") {
          $('#mainarea').html("Not logged in");
-         retval = MFILE.authenticateUser();
-         console.log("MFILE.authenticateUser() returned "+retval);
+         retval = MFILE.login();
+         console.log("MFILE.login() returned "+retval);
    } else if (MFILE.state === "MAIN_MENU") {
          MFILE.uid = MFILE.cookie.read('mfileuid');
          MFILE.sessionid = MFILE.cookie.read('mfilesessionid');
@@ -73,9 +73,9 @@ MFILE.actOnState = function () {
 // ------------
 // Main Program
 // ------------
-$(document).ready(function() {
-
-   MFILE.determineState();
-   MFILE.actOnState();
-
-});
+//$(document).ready(function() {
+//
+//  MFILE.determineState();
+//  MFILE.actOnState();
+//
+//});

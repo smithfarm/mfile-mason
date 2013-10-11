@@ -29,7 +29,7 @@ MFILE.html = {
    code_delete_conf1: "<h2>Confirmation needed</h2>You are asking to delete the code: ",
    code_delete_conf2: "<br>Press 'y' to delete, any other key to cancel: <input id='yesno' size='1' maxlength='2' /><br><br><br>",
    test_ldap1: "<h2>Test LDAP</h2>",
-   generate_mac_address: "<h2>Generate MAC addresses</h2><br><br>Press any key to generate, or &lt;ESC&gt; to exit: <input id='generate' size='1' maxlength='0' />",
+   generate_mac_address: "<h2>Generate MAC address</h2><br><div class='macaddr'></div><br>Do you want this address? (y)/n/ESC: <input id='generate' size='1' maxlength='0' />",
    view_cookie1: "<h2>View cookies</h2>",
    administer_files: 'Serial number: <textarea id="sern" name="sern" rows=1 cols=8 maxlength=8 style="height: 22px" /><div class="mfilekeyw"><br> Key words (max. 120 characters; words wrap) <textarea id="keywords" name="keywords" rows=3 cols="62" maxlength=120 style="height: 68px; width: 812px; overflow: hidden;" /> </div> <div class="mfiledesc"> Description/other notes (max. 320 characters) <textarea id="description" name="description" rows=6 cols="62" maxlength=320 style="height: 138px; width: 812px; overflow: hidden;" /></div>'
 }
