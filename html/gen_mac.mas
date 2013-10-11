@@ -1,0 +1,71 @@
+<%flags>
+  inherit => undef
+</%flags>
+
+<h2>Generate MAC address</h2>
+<br>
+The computer has just generated a random MAC address:<br>
+<br>
+<div id='macaddr'></div><br>
+<br>
+Do you want it? (y)/n/ESC: <input id='generate' size='1' maxlength='0' />
+
+<script>
+//-------------------------------
+// MAC address generator function
+//-------------------------------
+
+"use strict";
+
+MFILE.generateMAC = function () {
+   console.log("Entering MFILE.generateMAC");
+   MFILE.gen_mac = {};
+   $.ajax({
+      url: "/mfile-mason/ajax/gen_mac_start.plx",
+      type: "POST",
+      dataType: "json",
+      success: function(r) { 
+         console.log("AJAX POST success, result is: '"+r.result+"'");
+         MFILE.gen_mac.mac = r.result;
+         $('#macaddr').html(MFILE.gen_mac.mac);
+      },
+      error: function(xhr, status, error) {
+         $("#result").html("AJAX ERROR: "+xhr.status);
+      }
+   });
+}
+
+MFILE.generateMAC();
+
+MFILE.state = 'MAIN_MENU';
+$('#result').html('');
+$('#generate').focus();
+$("#generate").keydown(function(event) {
+console.log("KEYDOWN. WHICH "+event.which+", KEYCODE "+event.keyCode);
+if (event.which === 27)  { // ESC
+   event.preventDefault();
+   $('#result').empty();
+} else if (event.which === 78) { // 'n'
+   event.preventDefault();
+   MFILE.generateMAC();
+} else if (event.which === 89) { // 'y'
+   event.preventDefault();
+   MFILE.gen_mac.accept = 1;
+   $.ajax({
+      url: "/mfile-mason/ajax/gen_mac_accept.plx",
+      type: "POST",
+      dataType: "json",
+      data: MFILE.gen_mac,
+      success: function(r) { 
+         console.log("AJAX POST success, result is: '"+r.result+"'");
+         $("#result").html("MAC "+MFILE.gen_mac.mac+" assigned");
+         MFILE.actOnState();
+      },
+      error: function(xhr, status, error) {
+         $("#result").html("AJAX ERROR: "+xhr.status);
+      }
+   });
+} return false;
+MFILE.actOnState();
+});
+</script>

@@ -16,6 +16,7 @@ Bootstrapping mfile-mason for development
       perl-Config-Simple
       perl-JSON
       perl-ldap
+      perl-Net-Ping-External
 3. chkconfig apache2 on; chkconfig mysql on
 4. in /etc/sysconfig/apache2, see that APACHE_MODULES contains 'perl'
 5. set up DNS, /etc/hosts or whatever for your Mason virtual host

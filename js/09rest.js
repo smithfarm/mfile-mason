@@ -62,8 +62,7 @@ MFILE.actOnState = function () {
          console.log("Calling MFILE.cookie.view()");
          MFILE.cookie.view();
    } else if (MFILE.state === "GENERATE_MAC_ADDRESSES") {
-         console.log("Calling MFILE.generateMAC()");
-	 MFILE.generateMAC();
+	 $("#mainarea").load("/mfile-mason/html/gen_mac.mas");
    } else {
       console.log("MFILE INTERNAL ERROR: Inconsistent state!");
    }

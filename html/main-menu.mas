@@ -2,7 +2,16 @@
  inherit => undef
 </%flags>
 
-% debug("Entering main-menu.mas");
+<%once>
+  use mfile_init;
+
+  my $Global = $mfile_init::Global;
+  info("main-menu.mas: globals loaded");
+</%once>
+
+<%init>
+ debug("Entering main-menu.mas");
+</%init>
 
 <H2>Main menu</H2>
 1. Generate MAC addresses<br>
