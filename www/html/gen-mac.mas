@@ -2,13 +2,26 @@
   inherit => undef
 </%flags>
 
+<%once>
+  use mfile_init;
+
+  my $Global = $mfile_init::Global;
+  info("gen-mac.mas: globals loaded");
+</%once>
+
+<%init>
+  debug("Entering gen-mac.mas");
+</%init>
+
 <h2>Generate MAC address</h2>
+<div id='macaddr'></div>
 <br>
-The computer has just generated a random MAC address:<br>
+Do you want it? <input id='generate' size='1' maxlength='0' /><br>
 <br>
-<div id='macaddr'></div><br>
-<br>
-Do you want it? (y)/n/ESC: <input id='generate' size='1' maxlength='0' />
+Possible responses:<br>
+'y'   register MAC to '<% $Global->{'username'} %>'<br>
+'n'   refuse this MAC and generate another<br>
+'ESC' back to main menu<br>
 
 <script>
 //-------------------------------
@@ -19,6 +32,8 @@ Do you want it? (y)/n/ESC: <input id='generate' size='1' maxlength='0' />
 
 MFILE.generateMAC = function () {
    console.log("Entering MFILE.generateMAC");
+   $('#result').empty();
+   $('#maccaddr').html("*** PLEASE WAIT ***");
    MFILE.gen_mac = {};
    $.ajax({
       url: "/ajax/gen_mac_start.plx",
@@ -27,7 +42,7 @@ MFILE.generateMAC = function () {
       success: function(r) { 
          console.log("AJAX POST success, result is: '"+r.result+"'");
          MFILE.gen_mac.mac = r.result;
-         $('#macaddr').html(MFILE.gen_mac.mac);
+         $('#macaddr').html("The server is offering you MAC address "+MFILE.gen_mac.mac);
       },
       error: function(xhr, status, error) {
          $("#result").html("AJAX ERROR: "+xhr.status);
@@ -37,14 +52,13 @@ MFILE.generateMAC = function () {
 
 MFILE.generateMAC();
 
-MFILE.state = 'MAIN_MENU';
-$('#result').html('');
 $('#generate').focus();
 $("#generate").keydown(function(event) {
 console.log("KEYDOWN. WHICH "+event.which+", KEYCODE "+event.keyCode);
 if (event.which === 27)  { // ESC
    event.preventDefault();
-   $('#result').empty();
+   MFILE.state = 'MAIN_MENU';
+   MFILE.actOnState();
 } else if (event.which === 78) { // 'n'
    event.preventDefault();
    MFILE.generateMAC();
@@ -58,14 +72,18 @@ if (event.which === 27)  { // ESC
       data: MFILE.gen_mac,
       success: function(r) { 
          console.log("AJAX POST success, result is: '"+r.result+"'");
-         $("#result").html("MAC "+MFILE.gen_mac.mac+" assigned");
+         if (r.result === "success") {
+            $("#result").html("MAC '"+MFILE.gen_mac.mac+"' assigned to '"+MFILE.uid+"'");
+         } else {
+            $("#result").html("ERROR: '"+r.result+"'");
+         }
+         MFILE.state = 'MAIN_MENU';
          MFILE.actOnState();
       },
       error: function(xhr, status, error) {
          $("#result").html("AJAX ERROR: "+xhr.status);
       }
    });
-} return false;
-MFILE.actOnState();
+}
 });
 </script>

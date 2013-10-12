@@ -22,6 +22,7 @@ Pinging <% $Global->{'LdapServer'} %> ... <span id='pingresult'></span><br>
 "use strict";
 
 MFILE.testLDAP = function () {
+   $("#result").empty();
    $('#mainarea').html(MFILE.html.test_ldap1);
    console.log("About to test LDAP");
    //$('#pingresult').html("*** PLEASE WAIT ***");

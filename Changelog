@@ -1,3 +1,4 @@
+2013-10-12 Version 0.6.12 Refine gen-mac.mas, fix ldap-test.mas
 2013-10-12 Version 0.6.12 Update TODO
 2013-10-12 Version 0.6.12 Put all WWW files under www directory, migrate start.html to dhandler, fix LDAP test
 2013-10-11 Version 0.6.11 Somehow pulled it together - two outstanding bugs
