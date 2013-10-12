@@ -1,6 +1,10 @@
-# Short-term
+# Urgent
 20131011 Fix bug ('bad credentials' message disappears)
 20131011 Fix bug (MAC addresses not inserted properly in DB)
+
+# Short-term
+20131012 - zmapovat prubeh volani
+         - investigate add_global
 
 # Long-term
 20131007 Package in OBS
@@ -15,10 +19,9 @@
 20131010 Add password field to users table (for use when LDAP is
 	 disabled) -- for now, passwords to be set manually via mysql
 	 client
-20131010 Change login logic so it uses a form like this:
-         <form id="login" name="login" method="post" action=...>
-         (reason: so Firefox asks to save the password)
 20131011 Implement "RT Spam Domains" plugin
+20131012 - convert $Globals into OO function
+         - write generalized SQL error handler?
 	 
 # Pre-production
 20131011 Search sources for 'YIKES' and delete backdoor(s)
