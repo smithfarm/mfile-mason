@@ -36,10 +36,9 @@ This <% "nothing but a <friggin> test" | h %>.
 11. point browser to http://[my_virtual_hostname]/test.html while praying to the Mason gods
 12. test file should display correctly; if there are problems, see /var/log/apache2/error_log
 13. unpack the mfile-mason distribution to [dist]
-14. cp [dist]/etc/mfile-mason.conf /etc
+14. cp [dist]/etc/mfile-mason.conf /etc (and edit to taste)
 15. chown ncutler.users /etc/mfile-mason.conf
-16. edit /etc/mfile-mason.conf to taste (it controls this instance of mfile-mason)
-17. ln -si [dist] /srv/www/mason/components
+17. ln -si /srv/www/mason/components/www [dist]/www
 18. zypper in mariadb mariadb-client
 19. set mysql root password
 20. edit /etc/my.cnf and put mysql root password under [client]

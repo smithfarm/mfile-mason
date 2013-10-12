@@ -4,13 +4,18 @@
 
 <%once>
   use mfile_init;
+  use Logger::Syslog;
+
   mfile_init::LoadGlobal();
   my $Global = $mfile_init::Global;
-  info("start.html: globals loaded");
+  info("dhandler: globals loaded");
 </%once>
 
 <%init>
-  debug("Entering start.html");
+  debug("Entering dhandler");
+  if (not exists $Global->{'mfilevernum'}) {
+     error("Globals not loaded properly");
+  }
 </%init>
 
 <!DOCTYPE html>
@@ -18,20 +23,15 @@
 <head>
    <meta charset="utf-8">
    <title>MFILE <% $Global->{'mfilevernum'} %></title>
-   <link rel="stylesheet" type="text/css" href="/mfile-mason/css/start.css" />
+   <link rel="stylesheet" type="text/css" href="/css/start.css" />
 </head>
 
 <body>
-<script><& /mfile-mason/js/jquery.js &></script>
-<script><& /mfile-mason/js/01init.js &></script>
-<script><& /mfile-mason/js/02ldap.js &></script>
-<script><& /mfile-mason/js/03cook.js &></script>
-<script><& /mfile-mason/js/04logo.js &></script>
-<script><& /mfile-mason/js/05free.js &></script>
-<script><& /mfile-mason/js/06code.js &></script>
-<script><& /mfile-mason/js/07file.js &></script>
-<script><& /mfile-mason/js/08free.js &></script>
-<script><& /mfile-mason/js/09rest.js &></script>
+<script><& /js/jquery.js &></script>
+<script><& /js/01init.js &></script>
+<script><& /js/03cook.js &></script>
+<script><& /js/04logo.js &></script>
+<script><& /js/09rest.js &></script>
 
 <!-- foobar is a hidden field in the DOM -->
 <input type="hidden" id="foobar" value="" />
@@ -50,11 +50,11 @@
 
 <div class="mainarea" id="mainarea">
 % if (exists $Global->{'username'} or length $Global->{'username'} == 0) {
-%    debug("start.html: User not logged in");
-%    $m->comp( '/mfile-mason/html/login-dialog.mas' );
+%    debug("dhandler: User not logged in");
+%    $m->comp( '/html/login-dialog.mas' );
 % } else {
-%    debug("start.html: User is " . $Global->{'username'});
-%    $m->comp( '/mfile-mason/html/main-menu.mas' );
+%    debug("dhandler: User is " . $Global->{'username'});
+%    $m->comp( '/html/main-menu.mas' );
 % }
 </div>
 

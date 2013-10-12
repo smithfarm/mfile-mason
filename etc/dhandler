@@ -1,8 +1,0 @@
-<& /mfile-mason/html/start.html &>
-
-<%init>
-# comment
-use Logger::Syslog;
-logger_prefix("MFILE");
-debug("dhandler ran at ".localtime());
-</%init>

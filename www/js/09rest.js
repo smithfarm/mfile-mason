@@ -48,7 +48,7 @@ MFILE.actOnState = function () {
          MFILE.sessionid = MFILE.cookie.read('mfilesessionid');
          $("#userid").html("Username: "+MFILE.uid);
          console.log("Logged in! Session cookie: "+MFILE.sessionid);
-         $("#mainarea").load("/mfile-mason/html/main-menu.mas");
+         $("#mainarea").load("/html/main-menu.mas");
    } else if (MFILE.state === "ADMINISTER_CODES") {
          console.log("Calling MFILE.administerCodes()");
          MFILE.administerCodes();
@@ -56,13 +56,12 @@ MFILE.actOnState = function () {
          console.log("Calling MFILE.administerFiles()");
          MFILE.administerFiles();
    } else if (MFILE.state === "TEST_LDAP") {
-         console.log("Calling MFILE.testLDAP()");
-         MFILE.testLDAP();
+         $("#mainarea").load("/html/ldap-test.mas");
    } else if (MFILE.state === "VIEW_COOKIE") {
          console.log("Calling MFILE.cookie.view()");
          MFILE.cookie.view();
    } else if (MFILE.state === "GENERATE_MAC_ADDRESSES") {
-	 $("#mainarea").load("/mfile-mason/html/gen_mac.mas");
+	 $("#mainarea").load("/html/gen_mac.mas");
    } else {
       console.log("MFILE INTERNAL ERROR: Inconsistent state!");
    }

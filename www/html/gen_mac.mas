@@ -21,7 +21,7 @@ MFILE.generateMAC = function () {
    console.log("Entering MFILE.generateMAC");
    MFILE.gen_mac = {};
    $.ajax({
-      url: "/mfile-mason/ajax/gen_mac_start.plx",
+      url: "/ajax/gen_mac_start.plx",
       type: "POST",
       dataType: "json",
       success: function(r) { 
@@ -52,7 +52,7 @@ if (event.which === 27)  { // ESC
    event.preventDefault();
    MFILE.gen_mac.accept = 1;
    $.ajax({
-      url: "/mfile-mason/ajax/gen_mac_accept.plx",
+      url: "/ajax/gen_mac_accept.plx",
       type: "POST",
       dataType: "json",
       data: MFILE.gen_mac,

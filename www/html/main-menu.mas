@@ -15,7 +15,6 @@
 
 <H2>Main menu</H2>
 1. Generate MAC addresses<br>
-2. Administer codes<br>
 3. Test LDAP<br>
 4. View cookies<br>
 5. Rest in the Self<br>
@@ -45,10 +44,6 @@ MFILE.mainMenu = function () {
          switch (event.which) {
             case 49:  // 1
                MFILE.state = 'GENERATE_MAC_ADDRESSES';
-               MFILE.actOnState();
-               break;
-            case 50:  // 2
-               MFILE.state = 'ADMINISTER_FILES';
                MFILE.actOnState();
                break;
             case 51:  // 3

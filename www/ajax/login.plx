@@ -1,3 +1,7 @@
+<%flags>
+ inherit => undef
+</%flags>
+
 <%perl>
 # AJAX component for LDAP authentication
 use JSON;
@@ -167,6 +171,9 @@ sub _update_userdb {
    }
 }
 
+#******
+# MAIN
+#******
 my $Global = $mfile_init::Global;
 
 # Get POST parameters

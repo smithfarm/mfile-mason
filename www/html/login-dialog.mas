@@ -36,7 +36,7 @@ var processPassword = function (nam, pwd) {
 
    $('#result').html("*** PLEASE WAIT ***");
    $.ajax({
-      url: "/mfile-mason/ajax/login.plx",
+      url: "/ajax/login.plx",
       type: "POST",
       dataType: "json",
       data: creds,

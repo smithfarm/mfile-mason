@@ -1,5 +1,5 @@
 #
-# mfile-mason/mfile_init.pm
+# mfile_init.pm
 #
 # load configuration parameters from /etc/mfile-mason.conf
 # and populate %{$Global}

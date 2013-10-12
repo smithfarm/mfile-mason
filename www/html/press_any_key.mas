@@ -1,0 +1,15 @@
+<%flags>
+ inherit => undef
+</%flags>
+
+<br>
+Press any key to continue: <input id='continue' size='1' maxlength='0' />
+
+<script>
+   $("#continue").focus();
+   $("#continue").keydown(function(event) {
+      event.preventDefault();
+      $('#result').html("");
+      MFILE.actOnState();
+   });
+</script>
