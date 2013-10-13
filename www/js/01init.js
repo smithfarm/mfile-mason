@@ -1,14 +1,13 @@
+<%once>
+my $Global = \%Global;
+</%once>
+
 // 01init.js
 //
 // MFILE JavaScript init script
 // 20130503 smithfarm
 //
 // Defines objects and helper functions
-
-<%init>
- use mfile_init;
- my $Global = $mfile_init::Global;
-</%init>
 
 "use strict";  // ES5/strict
 

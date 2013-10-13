@@ -10,7 +10,7 @@ use DBI;
 use Net::LDAP;
 use Net::LDAP::Filter;
 use Logger::Syslog;
-use mfile_init;
+use MFILE;
 
 logger_prefix("MFILE");
 
@@ -18,7 +18,6 @@ sub _authenticate_LDAP {
 
    my $user = shift;
    my $passwd = shift;
-   my $Global = shift;
 
    if ($passwd) {
       info("Password is non-empty");
@@ -34,9 +33,9 @@ sub _authenticate_LDAP {
       return "success";
    }
 
-   my $server = $Global->{'LdapServer'};
-   my $base = $Global->{'LdapBase'};
-   my $filter = $Global->{'LdapFilter'};
+   my $server = $Global{'LdapServer'};
+   my $base = $Global{'LdapBase'};
+   my $filter = $Global{'LdapFilter'};
 
    debug("Attempting connection to LDAP server $server");
    my $ldap = Net::LDAP->new( $server ) or return "$@";
@@ -93,7 +92,6 @@ sub _authenticate_LDAP {
 }
 
 sub _authenticate_DB {
-   my $dbh = shift;
    my $user = shift;
    my $passwd = shift;
 
@@ -107,7 +105,7 @@ sub _authenticate_DB {
    # without checking the password
    my ($sql, $sth);
    $sql = "SELECT admin FROM users WHERE name = ?";
-   $sth = $dbh->prepare($sql);
+   $sth = $Global{'dbh'}->prepare($sql);
    # should check $sth here
    debug("Attempting to look up admin field for user $user");
    if ( $sth->execute($user) ) {
@@ -127,18 +125,18 @@ sub _authenticate_DB {
    }
 }
 
+# log user in
 sub _update_userdb {
 
-   my $dbh = shift;
    my $name = shift;
 
    my ($sql, $sth);
-   my $id = mfile_init::lookup_user($name);
+   my $id = MFILE::lookup_user($Global{'dbh'}, $name);
 
    # If user not found, add him/her to the db
    if (! $id) {
       $sql = "INSERT INTO users (name, admin, disabled, created) VALUES (?, 0, 0, NOW())";
-      $sth = $dbh->prepare($sql);
+      $sth = $Global{'dbh'}->prepare($sql);
       # should check $sth here
       debug("Attempting to insert user $name into local db");
       if ( $sth->execute($name) ) {
@@ -149,17 +147,16 @@ sub _update_userdb {
 	 error("INSERT failed on user $name: " . $DBI::errstr);
 	 # TERMINATE - FATAL ERROR
       }
-      $id = mfile_init::lookup_user($name);
+      $id = MFILE::lookup_user($Global{'dbh'}, $name);
    }
 
    # User is now logged in for sure 
-   debug("Calling mfile_init::login for user $name, USERID $id");
-   mfile_init::login($name, $id);
-   # error-checking here?
+   $Global{'username'} = $name;
+   $Global{'userid'} = $id;
 
    # Update the last_login field
    $sql = "UPDATE users SET last_login = NOW() WHERE id = ?";
-   $sth = $dbh->prepare($sql);
+   $sth = $Global{'dbh'}->prepare($sql);
    # should check $sth here
    debug("Attempting to UPDATE user record for last_login timestamp");
    if ( $sth->execute($id) ) {
@@ -175,7 +172,6 @@ sub _update_userdb {
 #******
 # MAIN
 #******
-my $Global = $mfile_init::Global;
 
 # Get POST parameters
 my $cgi = CGI->new;
@@ -183,23 +179,28 @@ my $user = $cgi->param("nam");
 info("Username is '$user'");
 my $passwd = $cgi->param("pwd");
 
+# Sanity check
+if (not exists $Global{'dbh'}) {
+   die "MFILE: Globals not loaded properly";
+}
+
 # Authenticate the user
 my $retval; 
-if ($Global->{'LdapEnable'} eq 'yes') {
-   $retval = _authenticate_LDAP($user, $passwd, $Global);
+if ($Global{'LdapEnable'} eq 'yes') {
+   $retval = _authenticate_LDAP($user, $passwd);
    if ($retval ne 'success') {
       info("LDAP authentication failed ($retval)");
    }
 } else {
    info("LDAP disabled. Authenticating against local user DB.");
-   $retval = _authenticate_DB($Global->{'dbh'}, $user, $passwd);
+   $retval = _authenticate_DB($user, $passwd);
 }
 
 # Update local user database
 if ($retval eq "success") {
    info("User $user successfully authenticated");
    # check if user is in our database and, if not, add them
-   _update_userdb($Global->{'dbh'}, $user);
+   _update_userdb($user);
 } else {
    info("Authentication failed for user $user");
 }

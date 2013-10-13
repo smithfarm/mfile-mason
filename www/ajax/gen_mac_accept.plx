@@ -9,30 +9,27 @@
 
 use CGI;
 use JSON;
-use mfile_init;
 use Logger::Syslog;
-
-my $Global = $mfile_init::Global;
 
 # Get argument
 my $cgi = CGI->new;
 my $mac = $cgi->param("mac");
-debug("gen_mac_accept.plx called with MAC address $mac and USERID " .  $Global->{'userid'}); 
+debug("gen_mac_accept.plx called with MAC address $mac and USERID " .  $Global{'userid'}); 
 
 my $retval;
 # Insert the MAC address, username, timestamp, etc.
 my $sql = "INSERT INTO mac_addresses (address, owner_id) VALUES (?, ?)";
-my $sth = $Global->{'dbh'}->prepare($sql);
+my $sth = $Global{'dbh'}->prepare($sql);
 # should check $sth here
-debug("Attempting to insert MAC $mac with owner USERID " . $Global->{'userid'});
-if ( $sth->execute($mac, $Global->{'userid'}) ) {
+debug("Attempting to insert MAC $mac with owner USERID " . $Global{'userid'});
+if ( $sth->execute($mac, $Global{'userid'}) ) {
    # success
    info("INSERT successful");
    $retval = "success";
 } else {
    # failure
    $retval = $DBI::errstr;
-   error("INSERT failed on MAC $mac and USERID " . $Global->{'userid'} . ": $retval");
+   error("INSERT failed on MAC $mac and USERID " . $Global{'userid'} . ": $retval");
 }
 
 # Return result to client

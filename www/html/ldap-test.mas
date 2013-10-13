@@ -2,21 +2,8 @@
   inherit => undef
 </%flags>
 
-<%once>
-  use mfile_init;
-  my $Global = $mfile_init::Global;
-  Logger::Syslog::info("ldap-test.mas: globals loaded");
-</%once>
-
-<%init>
-  use mfile_init;
-  use Logger::Syslog;
-  debug("Entering ldap-test.mas");
-  mfile_init::sanity_check();
-</%init>
-
 <h2>LDAP test</h2>
-Pinging <% $Global->{'LdapServer'} %> ... <span id='pingresult'></span><br>
+Pinging <% $Global{'LdapServer'} %> ... <span id='pingresult'></span><br>
 
 <& /html/press_any_key.mas &>
 

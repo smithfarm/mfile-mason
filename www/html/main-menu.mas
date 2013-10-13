@@ -2,19 +2,6 @@
  inherit => undef
 </%flags>
 
-<%once>
-  use mfile_init;
-  my $Global = $mfile_init::Global;
-  Logger::Syslog::info("main-menu.mas: globals loaded");
-</%once>
-
-<%init>
-  use mfile_init;
-  use Logger::Syslog;
- debug("Entering main-menu.mas");
-  mfile_init::sanity_check();
-</%init>
-
 <H2>Main menu</H2>
 1. Generate MAC addresses<br>
 3. Test LDAP<br>

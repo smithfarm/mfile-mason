@@ -1,6 +1,6 @@
 # Urgent
-20131011 Fix bug: 'bad credentials' message disappears
-         - bug occurs only when LDAP authentication is active
+20131013 System for maintaining session state in a "Global" hash is
+         broken: fix.
 
 # Short-term
 20131012 - zmapovat prubeh volani
