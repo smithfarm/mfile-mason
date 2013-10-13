@@ -138,4 +138,13 @@ sub LoadGlobal {
    return %$Global;
 }
  
+# sanity check
+sub sanity_check {
+  if (not exists $Global->{'mfilevernum'}) {
+     die "MFILE DIED: Globals not loaded properly";
+  }
+  if (not $Global->{'dbh'}) {
+     die "MFILE DIED: No connection to database";
+  }
+}
 1;

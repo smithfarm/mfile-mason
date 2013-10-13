@@ -1,3 +1,4 @@
+2013-10-13 Version 0.6.13 Better sanity
 2013-10-13 Version 0.6.13 Fix session handling; fix buggy INSERT statement in gen_mac_accept.plx; fix Rest in the Self
 2013-10-13 Version 0.6.12 Improve AJAX error handling
 2013-10-12 Version 0.6.12 Refine gen-mac.mas, fix ldap-test.mas

@@ -15,6 +15,7 @@ MFILE.logout = function () {
    MFILE.cookie.erase('mfileuid');
    MFILE.cookie.erase('mfilesessionid');
    MFILE.state = 'NOT_LOGGED_IN';
+   $("#result").empty();
    // Clear username and password stored on server
    $.ajax({
          url: "/ajax/logout.plx",

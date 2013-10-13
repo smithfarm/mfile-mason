@@ -93,6 +93,7 @@ sub _authenticate_LDAP {
 }
 
 sub _authenticate_DB {
+   my $dbh = shift;
    my $user = shift;
    my $passwd = shift;
 
@@ -106,7 +107,7 @@ sub _authenticate_DB {
    # without checking the password
    my ($sql, $sth);
    $sql = "SELECT admin FROM users WHERE name = ?";
-   $sth = $Global->{'dbh'}->prepare($sql);
+   $sth = $dbh->prepare($sql);
    # should check $sth here
    debug("Attempting to look up admin field for user $user");
    if ( $sth->execute($user) ) {
@@ -128,8 +129,8 @@ sub _authenticate_DB {
 
 sub _update_userdb {
 
+   my $dbh = shift;
    my $name = shift;
-   my $Global = shift;
 
    my ($sql, $sth);
    my $id = mfile_init::lookup_user($name);
@@ -137,7 +138,7 @@ sub _update_userdb {
    # If user not found, add him/her to the db
    if (! $id) {
       $sql = "INSERT INTO users (name, admin, disabled, created) VALUES (?, 0, 0, NOW())";
-      $sth = $Global->{'dbh'}->prepare($sql);
+      $sth = $dbh->prepare($sql);
       # should check $sth here
       debug("Attempting to insert user $name into local db");
       if ( $sth->execute($name) ) {
@@ -158,7 +159,7 @@ sub _update_userdb {
 
    # Update the last_login field
    $sql = "UPDATE users SET last_login = NOW() WHERE id = ?";
-   $sth = $Global->{'dbh'}->prepare($sql);
+   $sth = $dbh->prepare($sql);
    # should check $sth here
    debug("Attempting to UPDATE user record for last_login timestamp");
    if ( $sth->execute($id) ) {
@@ -191,14 +192,14 @@ if ($Global->{'LdapEnable'} eq 'yes') {
    }
 } else {
    info("LDAP disabled. Authenticating against local user DB.");
-   $retval = _authenticate_DB($user, $passwd);
+   $retval = _authenticate_DB($Global->{'dbh'}, $user, $passwd);
 }
 
 # Update local user database
 if ($retval eq "success") {
    info("User $user successfully authenticated");
    # check if user is in our database and, if not, add them
-   _update_userdb($user, $Global);
+   _update_userdb($Global->{'dbh'}, $user);
 } else {
    info("Authentication failed for user $user");
 }
