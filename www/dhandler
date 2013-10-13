@@ -44,13 +44,18 @@
 <div class="subbox" id="userid"></div>
 </div>
 
-<div class="boxtop" id="header">
-   <div class="subbox" id="topmesg" style="width: 640px"></div>
-   <div class="subbox" id="codebox" style="width: 184px"></div>
+<div class="boxbot" id="header">
+   <span class="subbox" id="topmesg">If application is
+   unresponsive, make sure browser window is active and press 'TAB'</span>
 </div>
 
 <div class="mainarea" id="mainarea">
-% if (exists $Global->{'username'} or length $Global->{'username'} == 0) {
+<script>
+   MFILE.uid = "<% $Global->{'username'} %>";
+   console.log("MFILE.uid === '"+MFILE.uid+"'");
+</script>
+% debug("Global hash username '". $Global->{'username'} . "', USERID " . $Global->{'userid'});
+% if ( (not exists $Global->{'username'}) or (length $Global->{'username'} == 0)) {
 %    debug("dhandler: User not logged in");
 %    $m->comp( '/html/login-dialog.mas' );
 % } else {

@@ -38,7 +38,9 @@ This <% "nothing but a <friggin> test" | h %>.
 13. unpack the mfile-mason distribution to [dist]
 14. cp [dist]/etc/mfile-mason.conf /etc (and edit to taste)
 15. chown ncutler.users /etc/mfile-mason.conf
-17. ln -si /srv/www/mason/components/www [dist]/www
+16. Create a symbolic link in /srv/www/mason/components (top-level Mason
+    directory) pointing to [dist]/www:
+       ln -si [dist]/www /srv/www/mason/components/mfile
 18. zypper in mariadb mariadb-client
 19. set mysql root password
 20. edit /etc/my.cnf and put mysql root password under [client]

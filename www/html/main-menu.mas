@@ -55,7 +55,8 @@ MFILE.mainMenu = function () {
                MFILE.actOnState();
                break;
             case 53:  // 5
-               $("#topmesg").html("You pressed 5");
+               MFILE.state = 'REST_IN_THE_SELF';
+               MFILE.actOnState();
                break;
             case 54:  // 6
                MFILE.logout();
@@ -65,5 +66,6 @@ MFILE.mainMenu = function () {
    });
 }
 
+$("#userid").html("Username: "+MFILE.uid);
 MFILE.mainMenu();
 </script>

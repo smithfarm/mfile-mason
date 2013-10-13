@@ -1,9 +1,6 @@
 # Urgent
 20131011 Fix bug: 'bad credentials' message disappears
          - bug occurs only when LDAP authentication is active
-20131011 Fix bug: MAC addresses not inserted properly in DB
-20131012 Fix bug: CTRL-R after login causes app to forget username
-         - IDEA: use cookie to track session, instead of $Global
 
 # Short-term
 20131012 - zmapovat prubeh volani
@@ -13,9 +10,10 @@
 20131007 Package in OBS
 20131009 "Mouse users click here" button to display help text about
 	 how the cursor must be visible in input field, press TAB,
-	 etc.  20131009 Fix Apache configuration to prevent user from
-	 calling a component directly (change privs so subdirectories
-	 cannot be accessed remotely?)
+	 etc.  
+20131009 Fix Apache configuration to prevent user from calling a component
+         directly (change privs so subdirectories cannot be accessed
+         remotely?)
 20131009 Implement "Hardware for decommissioning" plugin
 20131010 Come up with some way of dealing with DBI errors (raise an
          exception?)

@@ -62,6 +62,8 @@ MFILE.actOnState = function () {
          MFILE.cookie.view();
    } else if (MFILE.state === "GENERATE_MAC_ADDRESSES") {
 	 $("#mainarea").load("/html/gen-mac.mas");
+   } else if (MFILE.state === "REST_IN_THE_SELF") {
+         $("#mainarea").load("/html/rest-Self.mas");
    } else {
       console.log("MFILE INTERNAL ERROR: Inconsistent state!");
    }
