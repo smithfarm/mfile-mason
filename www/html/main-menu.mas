@@ -1,7 +1,5 @@
 <%init>
-use Logger::Syslog;
 our %Global;
-debug("Entering main-menu.mas: username is " . $Global{'username'});
 </%init>
 
 <H2>Main menu</H2>
