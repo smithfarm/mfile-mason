@@ -4,10 +4,10 @@
 
 MFILE.logout = function () {
    console.log("Entering MFILE.logout");
-   MFILE.uid = undefined;
-   MFILE.sessionid = undefined;
-   MFILE.cookie.erase('mfileuid');
-   MFILE.cookie.erase('mfilesessionid');
+   MFILE.username = undefined;
+   MFILE.userid = undefined;
+   MFILE.cookie.erase('username');
+   MFILE.cookie.erase('userid');
    MFILE.state = 'NOT_LOGGED_IN';
    $("#result").empty();
    // Clear username and password stored on server
@@ -17,7 +17,8 @@ MFILE.logout = function () {
          dataType: "json",
          success: function(r) { 
             console.log("AJAX POST success, result is: '"+r.result+"'");
-	    $("#mainarea").load('/html/login-dialog.mas');
+	    MFILE.state = 'NOT_LOGGED_IN';
+            MFILE.actOnState();
          },
          error: function(xhr, status, error) {
             $("#result").html("AJAX ERROR in MFILE.logout: "+xhr.status);

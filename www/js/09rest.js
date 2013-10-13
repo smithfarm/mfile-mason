@@ -4,24 +4,17 @@
 //    
 MFILE.determineState = function () {
 
-   var cookie_in_hand;
-   
-   // first, see if the user entered a proper URL
-   console.log("Lost field says: "+$('#urlcorrectness').val());
-   if ($('#urlcorrectness').val() === "lost") {
-      MFILE.state = 'LOST';
-      return true;
-   }
-
    // URL is OK; look at cookie
-   cookie_in_hand = MFILE.cookie.read('mfileuid');
+   MFILE.username = MFILE.cookie.read('username');
+   MFILE.userid = MFILE.cookie.read('userid');
 
-   console.log("UID appears to be "+cookie_in_hand);
-   if (cookie_in_hand !== null) {
+   console.log("Username appears to be "+MFILE.username);
+   console.log("Userid appears to be "+MFILE.userid);
+   if (MFILE.username !== null) {
       MFILE.state = 'MAIN_MENU';
-      return true;
+   } else {
+      MFILE.state = 'NOT_LOGGED_IN';
    }
-   return false;
 }
 
 // ------------------
@@ -34,20 +27,14 @@ MFILE.actOnState = function () {
    console.log("Acting on state "+MFILE.state);
    if (MFILE.state === "LOST") {
       $("#mainarea").html("<br><br><h1>Invalid URL</h1>");
-//   } else if (MFILE.state === "NOT_LOGGED_IN") {
-//         $('#userid').html('');
-//         $('#topmesg').html('');
-//         retval = MFILE.login();
-//         console.log("MFILE.login() returned "+retval);
-//	 MFILE.state = "LOGGING_IN";
+   } else if (MFILE.state === "NOT_LOGGED_IN") {
+         $('#userid').html('');
+         $('#mainarea').load('/html/login-dialog.mas');
    } else if (MFILE.state === "LOGIN_FAIL") {
          retval = MFILE.login();
          console.log("MFILE.login() returned "+retval);
    } else if (MFILE.state === "MAIN_MENU") {
-         MFILE.uid = MFILE.cookie.read('mfileuid');
-         MFILE.sessionid = MFILE.cookie.read('mfilesessionid');
-         $("#userid").html("Username: "+MFILE.uid);
-         console.log("Logged in! Session cookie: "+MFILE.sessionid);
+         console.log("mfile thinks the user's name is "+MFILE.username);
          $("#mainarea").load("/html/main-menu.mas");
    } else if (MFILE.state === "ADMINISTER_CODES") {
          console.log("Calling MFILE.administerCodes()");
@@ -72,9 +59,9 @@ MFILE.actOnState = function () {
 // ------------
 // Main Program
 // ------------
-//$(document).ready(function() {
-//
-//  MFILE.determineState();
-//  MFILE.actOnState();
-//
-//});
+$(document).ready(function() {
+
+  MFILE.determineState();
+  MFILE.actOnState();
+
+});

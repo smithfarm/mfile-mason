@@ -1,9 +1,5 @@
-<%flags>
- inherit => undef
-</%flags>
-
 <%init>
-# NOTE: no Global and no Logger::Syslog in this component
+our %Global;
 </%init>
 
 <iframe id="temp" name="temp" style="display:none"></iframe>
@@ -27,16 +23,6 @@ var processPassword = function (nam, pwd) {
 
    creds.nam = $('input[name="nam"]').val();
    creds.pwd = $('input[name="pwd"]').val();
-   MFILE.uid = undefined;
-
-   // YIKES YIKES YIKES YIKES YIKES YIKES !!!!
-   // remove this before going into production
-   // ****************************************
-   if (creds.nam === '' && creds.pwd === '') {
-            MFILE.uid = 'smithfarm';
-   }
-   // ****************************************
-   // YIKES YIKES YIKES YIKES YIKES YIKES !!!!
 
    $('#result').html("*** PLEASE WAIT ***");
    $.ajax({
@@ -48,12 +34,14 @@ var processPassword = function (nam, pwd) {
          console.log("AJAX POST success, result is: '"+r.result+"'");
          if (r.result === "success") {
             $('#result').html("");
-            MFILE.uid = creds.nam;
+            MFILE.username = r.username;
+            MFILE.userid = r.userid;
             MFILE.authSuccess();
          } else {
             console.log("Authentication attempt failed");
             $('#result').html("FAILED: '"+r.result+"'");
-            MFILE.uid = '';
+            MFILE.username = undefined;
+            MFILE.userid = undefined;
             MFILE.authFailure("Last login failed");
          }
       },
@@ -64,8 +52,9 @@ var processPassword = function (nam, pwd) {
 }
 
 MFILE.authSuccess = function () {
-   console.log("User "+MFILE.uid+" authenticated, right?");
-   MFILE.cookie.create('mfileuid', MFILE.uid);
+   console.log("User "+MFILE.username+" authenticated, right?");
+   MFILE.cookie.create('username', MFILE.username);
+   MFILE.cookie.create('userid', MFILE.userid);
    MFILE.state = 'MAIN_MENU';
    MFILE.actOnState();   
 }

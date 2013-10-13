@@ -1,6 +1,10 @@
-<%once>
-my $Global = \%Global;
-</%once>
+<%flags>
+inherit => undef
+</%flags>
+
+<%init>
+our %Global;
+</%init>
 
 // 01init.js
 //
@@ -33,10 +37,10 @@ MFILE.activeCode = {
 };
 
 MFILE.ldap = {
-   enable: '<% $Global->{'LdapEnable'} %>',
-   server: '<% $Global->{'LdapServer'} %>',
-   base  : '<% $Global->{'LdapBase'} %>',
-   filter: '<% $Global->{'LdapFilter'} %>'
+   enable: '<% $Global{'LdapEnable'} %>',
+   server: '<% $Global{'LdapServer'} %>',
+   base  : '<% $Global{'LdapBase'} %>',
+   filter: '<% $Global{'LdapFilter'} %>'
 }
 
 // ----------------

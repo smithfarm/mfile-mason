@@ -11,6 +11,8 @@
 use JSON;
 use Logger::Syslog;
 
+our %Global;
+
 sub gen_mac {
 
    my $a = shift @_;      # get argument, which is assumed to be an integer

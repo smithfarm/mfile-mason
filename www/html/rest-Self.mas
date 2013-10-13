@@ -1,6 +1,6 @@
-<%flags>
-  inherit => undef
-</%flags>
+<%init>
+our %Global;
+</%init>
 
 <h2>Resting in the Self</h2>
 

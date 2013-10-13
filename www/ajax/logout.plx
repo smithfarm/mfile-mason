@@ -2,6 +2,8 @@
 # AJAX component to let server know user is logged out
 use JSON;
 
+our %Global;
+
 delete $Global{'username'};
 delete $Global{'userid'};
 

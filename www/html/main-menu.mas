@@ -1,6 +1,8 @@
-<%flags>
- inherit => undef
-</%flags>
+<%init>
+use Logger::Syslog;
+our %Global;
+debug("Entering main-menu.mas: username is " . $Global{'username'});
+</%init>
 
 <H2>Main menu</H2>
 1. Generate MAC addresses<br>
@@ -55,6 +57,6 @@ MFILE.mainMenu = function () {
    });
 }
 
-$("#userid").html("Username: "+MFILE.uid);
+$("#userid").html("Username: "+MFILE.username);
 MFILE.mainMenu();
 </script>

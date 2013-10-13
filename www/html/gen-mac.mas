@@ -1,6 +1,6 @@
-<%flags>
-  inherit => undef
-</%flags>
+<%init>
+our %Global;
+</%init>
 
 <h2>Generate MAC address</h2>
 <div id='macaddr'></div>
@@ -8,7 +8,7 @@
 Do you want it? <input id='generate' size='1' maxlength='0' /><br>
 <br>
 Possible responses:<br>
-'y'   register MAC to '<% $Global{'username'} %>'<br>
+'y'   register MAC to <span id="mac_user"></span><br>
 'n'   refuse this MAC and generate another<br>
 'ESC' back to main menu<br>
 
@@ -54,7 +54,8 @@ if (event.which === 27)  { // ESC
    MFILE.generateMAC();
 } else if (event.which === 89) { // 'y'
    event.preventDefault();
-   MFILE.gen_mac.accept = 1;
+   MFILE.gen_mac.username = MFILE.username;
+   MFILE.gen_mac.userid = MFILE.userid;
    $.ajax({
       url: "/ajax/gen_mac_accept.plx",
       type: "POST",
@@ -63,7 +64,7 @@ if (event.which === 27)  { // ESC
       success: function(r) { 
          console.log("AJAX POST success, result is: '"+r.result+"'");
          if (r.result === "success") {
-            $("#result").html("MAC '"+MFILE.gen_mac.mac+"' assigned to '"+MFILE.uid+"'");
+            $("#result").html("MAC '"+MFILE.gen_mac.mac+"' assigned to '"+MFILE.gen_mac.username+"'");
          } else {
             $("#result").html("ERROR: '"+r.result+"'");
             return;
@@ -77,4 +78,6 @@ if (event.which === 27)  { // ESC
    });
 }
 });
+
+$('#mac_user').html(MFILE.username);
 </script>

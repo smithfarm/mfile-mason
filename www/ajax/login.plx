@@ -1,7 +1,3 @@
-<%flags>
- inherit => undef
-</%flags>
-
 <%perl>
 # AJAX component for LDAP authentication
 use JSON;
@@ -11,6 +7,8 @@ use Net::LDAP;
 use Net::LDAP::Filter;
 use Logger::Syslog;
 use MFILE;
+
+our %Global;
 
 logger_prefix("MFILE");
 
@@ -28,7 +26,7 @@ sub _authenticate_LDAP {
    # YIKES YIKES YIKES YIKES YIKES YIKES YIKES !!
    # get rid of this before going into production
    # ********************************************
-   if ($user eq 'smithfarm') {
+   if ($user eq 'smithfarm' or $user eq 'ncutler') {
       info("User is $user -- bypassing LDAP authentication.");
       return "success";
    }
@@ -150,10 +148,6 @@ sub _update_userdb {
       $id = MFILE::lookup_user($Global{'dbh'}, $name);
    }
 
-   # User is now logged in for sure 
-   $Global{'username'} = $name;
-   $Global{'userid'} = $id;
-
    # Update the last_login field
    $sql = "UPDATE users SET last_login = NOW() WHERE id = ?";
    $sth = $Global{'dbh'}->prepare($sql);
@@ -167,6 +161,8 @@ sub _update_userdb {
       error("UPDATE failed on user $name: " . $DBI::errstr);
       # TERMINATE - FATAL ERROR
    }
+
+   return $id;
 }
 
 #******
@@ -178,6 +174,7 @@ my $cgi = CGI->new;
 my $user = $cgi->param("nam");
 info("Username is '$user'");
 my $passwd = $cgi->param("pwd");
+my $userid;
 
 # Sanity check
 if (not exists $Global{'dbh'}) {
@@ -199,14 +196,15 @@ if ($Global{'LdapEnable'} eq 'yes') {
 # Update local user database
 if ($retval eq "success") {
    info("User $user successfully authenticated");
-   # check if user is in our database and, if not, add them
-   _update_userdb($user);
+   # log them in
+   $userid = _update_userdb($user);
 } else {
    info("Authentication failed for user $user");
+   $userid = undef;
 }
 
 # Send result back to client
-my %result = ('result' => $retval);
+my %result = ('result' => $retval, 'username' => $user, 'userid' => $userid);
 my $json_text = encode_json \%result;
 print $json_text;
 </%perl>

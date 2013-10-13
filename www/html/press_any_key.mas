@@ -1,6 +1,6 @@
-<%flags>
- inherit => undef
-</%flags>
+<%init>
+our %Global;
+</%init>
 
 <br>
 Press any key to continue: <input id='continue' size='1' maxlength='0' />
