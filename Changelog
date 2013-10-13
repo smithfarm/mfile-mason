@@ -1,3 +1,4 @@
+2013-10-13 Version 0.6.12 Improve AJAX error handling
 2013-10-12 Version 0.6.12 Refine gen-mac.mas, fix ldap-test.mas
 2013-10-12 Version 0.6.12 Update TODO
 2013-10-12 Version 0.6.12 Put all WWW files under www directory, migrate start.html to dhandler, fix LDAP test

@@ -36,8 +36,7 @@ MFILE.testLDAP = function () {
             $('#pingresult').append(r.result);
          },
          error: function(xhr, status, error) {
-            $("#pingresult").html("*** ERROR ***");
-            $("#result").html("AJAX ERROR: "+xhr.status);
+            $("#mainarea").html(xhr.responseText);
          }
       });
    MFILE.state = "MAIN_MENU";

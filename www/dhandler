@@ -12,6 +12,7 @@
 </%once>
 
 <%init>
+  use mfile_init;
   debug("Entering dhandler");
   if (not exists $Global->{'mfilevernum'}) {
      error("Globals not loaded properly");

@@ -53,7 +53,7 @@ var processPassword = function (nam, pwd) {
          }
       },
       error: function(xhr, status, error) {
-         $("#result").html("AJAX ERROR: "+xhr.status);
+         $("#mainarea").html(xhr.responseText);
       }
    });
 }

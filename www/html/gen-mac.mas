@@ -45,7 +45,7 @@ MFILE.generateMAC = function () {
          $('#macaddr').html("The server is offering you MAC address "+MFILE.gen_mac.mac);
       },
       error: function(xhr, status, error) {
-         $("#result").html("AJAX ERROR: "+xhr.status);
+         $("#mainarea").html(xhr.responseText);
       }
    });
 }
@@ -57,6 +57,7 @@ $("#generate").keydown(function(event) {
 console.log("KEYDOWN. WHICH "+event.which+", KEYCODE "+event.keyCode);
 if (event.which === 27)  { // ESC
    event.preventDefault();
+   $("#result").empty();
    MFILE.state = 'MAIN_MENU';
    MFILE.actOnState();
 } else if (event.which === 78) { // 'n'
@@ -76,12 +77,13 @@ if (event.which === 27)  { // ESC
             $("#result").html("MAC '"+MFILE.gen_mac.mac+"' assigned to '"+MFILE.uid+"'");
          } else {
             $("#result").html("ERROR: '"+r.result+"'");
+            return;
          }
          MFILE.state = 'MAIN_MENU';
          MFILE.actOnState();
       },
       error: function(xhr, status, error) {
-         $("#result").html("AJAX ERROR: "+xhr.status);
+         $("#mainarea").html(xhr.responseText);
       }
    });
 }

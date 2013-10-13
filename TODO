@@ -1,6 +1,9 @@
 # Urgent
-20131011 Fix bug ('bad credentials' message disappears)
-20131011 Fix bug (MAC addresses not inserted properly in DB)
+20131011 Fix bug: 'bad credentials' message disappears
+         - bug occurs only when LDAP authentication is active
+20131011 Fix bug: MAC addresses not inserted properly in DB
+20131012 Fix bug: CTRL-R after login causes app to forget username
+         - IDEA: use cookie to track session, instead of $Global
 
 # Short-term
 20131012 - zmapovat prubeh volani
