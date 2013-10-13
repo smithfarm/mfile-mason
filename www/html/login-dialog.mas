@@ -48,8 +48,9 @@ var processPassword = function (nam, pwd) {
             MFILE.authSuccess();
          } else {
             console.log("Authentication attempt failed");
-	    window.location.reload();
             $('#result').html("FAILED: '"+r.result+"'");
+            MFILE.uid = '';
+            MFILE.authFailure("Last login failed");
          }
       },
       error: function(xhr, status, error) {

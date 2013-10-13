@@ -1,3 +1,4 @@
+2013-10-13 Version 0.6.13 Call MFILE.authFailure on failed login
 2013-10-13 Version 0.6.13 Add missing 'use Logger::Syslog'
 2013-10-13 Version 0.6.13 Better sanity
 2013-10-13 Version 0.6.13 Fix session handling; fix buggy INSERT statement in gen_mac_accept.plx; fix Rest in the Self
