@@ -2,17 +2,6 @@
   inherit => undef
 </%flags>
 
-<%once>
-  use mfile_init;
-
-  my $Global = $mfile_init::Global;
-  info("ldap-test.mas: globals loaded");
-</%once>
-
-<%init>
-  debug("Entering ldap-test.mas");
-</%init>
-
 <h2>Resting in the Self</h2>
 
 <& /html/press_any_key.mas &>

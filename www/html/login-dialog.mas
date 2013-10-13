@@ -2,6 +2,10 @@
  inherit => undef
 </%flags>
 
+<%init>
+# NOTE: no Global and no Logger::Syslog in this component
+</%init>
+
 <iframe id="temp" name="temp" style="display:none"></iframe>
 <form target="temp" id="loginform" onsubmit="processPassword()">
    <br>

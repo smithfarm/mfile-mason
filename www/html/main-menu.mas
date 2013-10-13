@@ -4,14 +4,15 @@
 
 <%once>
   use mfile_init;
-  use Logger::Syslog;
-
   my $Global = $mfile_init::Global;
-  info("main-menu.mas: globals loaded");
+  Logger::Syslog::info("main-menu.mas: globals loaded");
 </%once>
 
 <%init>
+  use mfile_init;
+  use Logger::Syslog;
  debug("Entering main-menu.mas");
+  mfile_init::sanity_check();
 </%init>
 
 <H2>Main menu</H2>

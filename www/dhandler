@@ -3,17 +3,18 @@
 </%flags>
 
 <%once>
+  use mfile_init;
   use Logger::Syslog;
-
   mfile_init::LoadGlobal();
-  info("dhandler: globals loaded");
+  my $Global = $mfile_init::Global;
+  Logger::Syslog::info("dhandler: globals loaded");
 </%once>
 
 <%init>
   use mfile_init;
+  use Logger::Syslog;
   debug("Entering dhandler");
   mfile_init::sanity_check();
-  my $Global = $mfile_init::Global;
 </%init>
 
 <!DOCTYPE html>

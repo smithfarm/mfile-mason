@@ -4,13 +4,15 @@
 
 <%once>
   use mfile_init;
-
   my $Global = $mfile_init::Global;
-  info("ldap-test.mas: globals loaded");
+  Logger::Syslog::info("ldap-test.mas: globals loaded");
 </%once>
 
 <%init>
+  use mfile_init;
+  use Logger::Syslog;
   debug("Entering ldap-test.mas");
+  mfile_init::sanity_check();
 </%init>
 
 <h2>LDAP test</h2>

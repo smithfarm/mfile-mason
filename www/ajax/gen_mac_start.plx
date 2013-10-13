@@ -9,6 +9,8 @@
 # 20131009 ncutler (adapted for use with HTML::Mason)
 
 use JSON;
+use Logger::Syslog;
+use mfile_init;
 
 sub gen_mac {
 
@@ -26,10 +28,12 @@ sub gen_mac {
 }
 
 sub mac_exists {
+   my $dbh = shift;
    my $mac = shift;
+
    my ($sql, $sth);
    $sql = "SELECT id FROM mac_addresses WHERE address LIKE ?";
-   $sth = $Global->{'dbh'}->prepare($sql);
+   $sth = $dbh->prepare($sql);
    # should check $sth here
    debug("Looking up randomly generated MAC address $mac");
    if ( $sth->execute($mac) ) {
@@ -49,6 +53,7 @@ sub mac_exists {
    }
 }
 
+my $Global = $mfile_init::Global;
 my $ceiling = 16*16*16*16*16*16;   # 16^6
 
 # generate random MAC addresses until we find one that isn't already
@@ -57,7 +62,7 @@ my $mac;
 do {
    my $random = int( rand($ceiling) );
    $mac = gen_mac($random);
-} while ( mac_exists($mac) );
+} while ( mac_exists($Global->{'dbh'}, $mac) );
 
 my %result = ('result' => $mac);
 my $json_text = encode_json \%result;
