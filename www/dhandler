@@ -2,12 +2,11 @@
   inherit => undef
 </%flags>
 
-<%once>
+<%init>
 { 
   package HTML::Mason::Commands;
   use vars qw( %Global );
 }
-my $Global = \%Global;
 
 use DBI;
 use Config::Simple;
@@ -21,10 +20,10 @@ sub _get_mfile_version {
    my $Config = shift;
 
    if ( open my $fh, "<", $Config->{'RootDir'} . "VERSION" ) {
-      $Global->{'mfilevernum'} = <$fh>;
+      $Global{'mfilevernum'} = <$fh>;
       close $fh;
    } else {
-      $Global->{'mfilevernum'} = $!;
+      $Global{'mfilevernum'} = $!;
    }
 
 }
@@ -35,20 +34,20 @@ sub _get_mariadb_version {
    my $Config = shift;
 
    my ( $sql, $sth );
-   my $result = $Global->{'dbh'} = DBI->connect( 'dbi:mysql:' . $Config->{'DbName'}, 
+   my $result = $Global{'dbh'} = DBI->connect( 'dbi:mysql:' . $Config->{'DbName'}, 
                                                  $Config->{'DbUsername'}, 
                                                  $Config->{'DbPassword'} );
    if ($result) {
       $sql = "SELECT version();";
-      $sth = $Global->{'dbh'}->prepare($sql);
+      $sth = $Global{'dbh'}->prepare($sql);
    } else {
-      $Global->{'dbvernum'} = "$DBI::errstr\n";
+      $Global{'dbvernum'} = "$DBI::errstr\n";
       return;
    }
    if ( $sth->execute ) {
-      $Global->{'dbvernum'} = $sth->fetchrow_array();
+      $Global{'dbvernum'} = $sth->fetchrow_array();
    } else {
-      $Global->{'dbvernum'} = "$DBI::errstr\n";
+      $Global{'dbvernum'} = "$DBI::errstr\n";
    }
 
 }
@@ -59,10 +58,10 @@ sub _get_ldap_configuration {
 
    my $Config = shift;
 
-   $Global->{'LdapEnable'} = $Config->{'LdapEnable'};
-   $Global->{'LdapServer'} = $Config->{'LdapServer'};
-   $Global->{'LdapBase'} = $Config->{'LdapBase'};
-   $Global->{'LdapFilter'} = $Config->{'LdapFilter'};
+   $Global{'LdapEnable'} = $Config->{'LdapEnable'};
+   $Global{'LdapServer'} = $Config->{'LdapServer'};
+   $Global{'LdapBase'} = $Config->{'LdapBase'};
+   $Global{'LdapFilter'} = $Config->{'LdapFilter'};
 
 }
 
@@ -72,22 +71,22 @@ sub login {
    my $userid = shift;
 
    debug("Logging in user $username with USERID $userid");
-   $Global->{'username'} = $username;
-   $Global->{'userid'} = $userid;
+   $Global{'username'} = $username;
+   $Global{'userid'} = $userid;
 }
 
 # log user out
 sub logout {
    my $retval;
-   if (exists $Global->{'username'}) {
-      delete $Global->{'username'};
+   if (exists $Global{'username'}) {
+      delete $Global{'username'};
    }
-   if (exists $Global->{'userid'}) {
-      delete $Global->{'userid'};
+   if (exists $Global{'userid'}) {
+      delete $Global{'userid'};
    }
 
-   if ( exists $Global->{'username'} or
-        exists $Global->{'userid'} ) {
+   if ( exists $Global{'username'} or
+        exists $Global{'userid'} ) {
       $retval = 0;
    } else {
       $retval = 1;
@@ -99,7 +98,6 @@ sub logout {
 sub LoadGlobal {
 
    my $Config = {};
-   my $Global = {};
 
    # Hopefully, the location of the configuration file is the only
    # thing we will have hard-coded
@@ -107,33 +105,27 @@ sub LoadGlobal {
    _get_mfile_version($Config);
    _get_mariadb_version($Config);
    _get_ldap_configuration($Config);
-
-   return $Global;
 }
  
 # sanity check
 sub sanity_check {
-  if (not exists $Global->{'mfilevernum'}) {
-     die "MFILE DIED: Globals not loaded properly";
+  if (not exists $Global{'mfilevernum'}) {
+     LoadGlobal();
   }
-  if (not $Global->{'dbh'}) {
+  if (not $Global{'dbh'}) {
      die "MFILE DIED: No connection to database";
   }
 }
 
-$Global = LoadGlobal();
-</%once>
-
-<%init>
-  use Logger::Syslog;
-  debug("Entering dhandler");
+debug("Entering dhandler");
+sanity_check();
 </%init>
 
 <!DOCTYPE html>
 <html>
 <head>
    <meta charset="utf-8">
-   <title>MFILE <% $Global->{'mfilevernum'} %></title>
+   <title>MFILE <% $Global{'mfilevernum'} %></title>
    <link rel="stylesheet" type="text/css" href="/css/start.css" />
 </head>
 
@@ -149,7 +141,7 @@ $Global = LoadGlobal();
 
 <div class="abovebox" id="title">
 <div class="subbox" style="font-size: 24px; width: 80px"><strong>MFILE</strong></div>
-<div class="subbox" id="versionbox" style="width: 50px"><% $Global->{'mfilevernum'} %></div>
+<div class="subbox" id="versionbox" style="width: 50px"><% $Global{'mfilevernum'} %></div>
 <div class="subbox" style="width: 480px"></div>
 <div class="subbox" id="userid"></div>
 </div>
@@ -161,15 +153,15 @@ $Global = LoadGlobal();
 
 <div class="mainarea" id="mainarea">
 <script>
-   MFILE.uid = "<% $Global->{'username'} %>";
+   MFILE.uid = "<% $Global{'username'} %>";
    console.log("MFILE.uid === '"+MFILE.uid+"'");
 </script>
-% debug("Global hash username '". $Global->{'username'} . "', USERID " . $Global->{'userid'});
-% if ( (not exists $Global->{'username'}) or (length $Global->{'username'} == 0)) {
+% debug("Global hash username '". $Global{'username'} . "', USERID " . $Global{'userid'});
+% if ( (not exists $Global{'username'}) or (length $Global{'username'} == 0)) {
 %    debug("dhandler: User not logged in");
 %    $m->comp( '/html/login-dialog.mas' );
 % } else {
-%    debug("dhandler: User is " . $Global->{'username'});
+%    debug("dhandler: User is " . $Global{'username'});
 %    $m->comp( '/html/main-menu.mas' );
 % }
 </div>
@@ -181,7 +173,7 @@ $Global = LoadGlobal();
 </div>
 
 <div class="dbstatus" id="dbstatus">
-<% $Global->{'dbvernum'} %>
+<% $Global{'dbvernum'} %>
 </div>
 
 </body>
