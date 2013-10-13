@@ -4,6 +4,7 @@
 
 <%once>
   use mfile_init;
+  use Logger::Syslog;
 
   my $Global = $mfile_init::Global;
   info("main-menu.mas: globals loaded");
