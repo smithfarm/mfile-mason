@@ -26,3 +26,5 @@ CREATE TABLE mfiledb.mac_addresses (
 );
 INSERT INTO mfiledb.users (name, admin, disabled, created) 
    VALUES ('smithfarm', 1, 0, NOW());
+INSERT INTO mfiledb.users (name, admin, disabled, created) 
+   VALUES ('demo', 1, 0, NOW());

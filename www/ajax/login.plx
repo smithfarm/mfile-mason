@@ -8,8 +8,6 @@ use Net::LDAP::Filter;
 use Logger::Syslog;
 use MFILE;
 
-our %Global;
-
 logger_prefix("MFILE");
 
 sub _authenticate_LDAP {
@@ -26,7 +24,7 @@ sub _authenticate_LDAP {
    # YIKES YIKES YIKES YIKES YIKES YIKES YIKES !!
    # get rid of this before going into production
    # ********************************************
-   if ($user eq 'smithfarm' or $user eq 'ncutler') {
+   if ($user eq 'smithfarm' or $user eq 'ncutler' or $user eq 'demo') {
       info("User is $user -- bypassing LDAP authentication.");
       return "success";
    }

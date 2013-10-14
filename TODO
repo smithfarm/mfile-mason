@@ -1,7 +1,15 @@
 # Urgent
-20131013 Send database handle as parameter 
+20131014 On "bad credentials", clear password field and focus on
+         Username field
+20131014 When main-menu.mas is loading, check for $Global{'dbh'} and
+         if it isn't there, reload the entire page with
+         'window.location.reload()'  (workaround for broken $Global,
+	 pending a better solution)
+20131014 Implement a top-level autohandler that checks the dbh
+         Refer to Chapter 8 of Mason book for inspiration
 
 # Short-term
+20131014 Firefox remember password is broken again
 
 # Long-term
 20131007 Package in OBS
@@ -20,6 +28,8 @@
 20131011 Implement "RT Spam Domains" plugin
 20131012 - convert $Globals into OO function
          - write generalized SQL error handler?
+20131014 Do something about disappearing $Global{'dbh'} bug. Find some
+         other way to store the database handler.
 	 
 # Pre-production
 20131011 Search sources for 'YIKES' and delete backdoor(s)

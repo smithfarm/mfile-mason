@@ -1,12 +1,8 @@
-<%init>
-our %Global;
-</%init>
-
 <iframe id="temp" name="temp" style="display:none"></iframe>
 <form target="temp" id="loginform" onsubmit="processPassword()">
    <br>
    <br>
-   Innerweb credentials<br>
+   Innerweb credentials, or username 'demo' with empty password<br>
    <br>
    Username <input name='nam' size='15' maxlength='9' /><br>
    Password <input name='pwd' type='password' size='20' maxlength='20' /><br>

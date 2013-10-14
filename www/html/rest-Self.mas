@@ -1,7 +1,3 @@
-<%init>
-our %Global;
-</%init>
-
 <h2>Resting in the Self</h2>
 
 <& /html/press_any_key.mas &>

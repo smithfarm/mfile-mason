@@ -3,8 +3,6 @@
 </%flags>
 
 <%init>
-our %Global;
-
 use DBI;
 use Config::Simple;
 use Logger::Syslog;

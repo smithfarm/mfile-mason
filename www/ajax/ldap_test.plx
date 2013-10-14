@@ -6,7 +6,6 @@ use Net::Ping::External qw(ping);
 use Logger::Syslog;
 
 logger_prefix("MFILE");
-our %Global;
 
 my $cgi = CGI->new;
 my $host = $cgi->param("server");

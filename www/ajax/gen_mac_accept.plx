@@ -11,8 +11,6 @@ use CGI;
 use JSON;
 use Logger::Syslog;
 
-our %Global;
-
 # Get argument
 my $cgi = CGI->new;
 my $mac = $cgi->param("mac");

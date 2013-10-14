@@ -1,7 +1,3 @@
-<%init>
-our %Global;
-</%init>
-
 <h2>LDAP test</h2>
 Pinging <% $Global{'LdapServer'} %> ... <span id='pingresult'></span><br>
 

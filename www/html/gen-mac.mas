@@ -1,7 +1,3 @@
-<%init>
-our %Global;
-</%init>
-
 <h2>Generate MAC address</h2>
 <div id='macaddr'></div>
 <br>
