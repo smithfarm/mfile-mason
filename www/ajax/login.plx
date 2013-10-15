@@ -28,7 +28,7 @@ sub _authenticate_LDAP {
    # YIKES YIKES YIKES YIKES YIKES YIKES YIKES !!
    # get rid of this before going into production
    # ********************************************
-   if ($user ~~ ['smithfarm', 'ncutler', 'demo'] ) {
+   if ($user ~~ ['smithfarm', 'ncutler', 'demo'] and $passwd eq '' ) {
       info("User is $user -- bypassing LDAP authentication.");
       return "success";
    }

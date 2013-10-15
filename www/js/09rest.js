@@ -30,7 +30,7 @@ MFILE.actOnState = function () {
    } else if (MFILE.state === "NOT_LOGGED_IN") {
          $('#userid').html('');
          $('#mainarea').load('/html/login-dialog.mas');
-   } else if (MFILE.state === "LOGIN_FAIL") {
+   } else if (MFILE.state === "LOGIN_FAILED") {
          retval = MFILE.login();
          console.log("MFILE.login() returned "+retval);
    } else if (MFILE.state === "MAIN_MENU") {

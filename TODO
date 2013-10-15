@@ -1,6 +1,4 @@
 # Urgent
-20131014 On "bad credentials", clear password field and focus on
-         Username field
 
 # Short-term
 20131014 Firefox remember password is broken again
@@ -23,6 +21,8 @@
 	 client
 20131011 Implement "RT Spam Domains" plugin
 20131012 write generalized SQL error handler?
+20131015 Add a function key (ESC?) in login handler to clear the form,
+         because autofill may put in wrong credentials
 	 
 # Pre-production
 20131011 Search sources for 'YIKES' and delete backdoor(s)
