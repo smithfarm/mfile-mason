@@ -1,10 +1,9 @@
 # Urgent
 20131014 On "bad credentials", clear password field and focus on
          Username field
-20131014 When main-menu.mas is loading, check for $Global{'dbh'} and
-         if it isn't there, reload the entire page with
-         'window.location.reload()'  (workaround for broken $Global,
-	 pending a better solution)
+20131014 Make an autohandler that checks existence of
+         $Global{'dbh'} and if it doesn't exist, reloads page with 
+         'window.location.reload()' 
 20131014 Implement a top-level autohandler that checks the dbh
          Refer to Chapter 8 of Mason book for inspiration
 

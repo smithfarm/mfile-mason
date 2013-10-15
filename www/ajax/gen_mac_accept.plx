@@ -1,3 +1,9 @@
+<%args>
+$mac
+$username
+$userid
+</%args>
+
 <%perl>
 #
 # gen_mac_accept.plx
@@ -7,15 +13,10 @@
 #
 # 20131011 ncutler
 
-use CGI;
 use JSON;
 use Logger::Syslog;
 
 # Get argument
-my $cgi = CGI->new;
-my $mac = $cgi->param("mac");
-my $username = $cgi->param("username");
-my $userid = $cgi->param("userid");
 debug("gen_mac_accept.plx called with MAC address $mac, username $username, and userid $userid"); 
 
 my $retval;

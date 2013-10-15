@@ -1,7 +1,11 @@
+<%args>
+$nam
+$pwd
+</%args>
+
 <%perl>
 # AJAX component for LDAP authentication
 use JSON;
-use CGI;
 use DBI;
 use Net::LDAP;
 use Net::LDAP::Filter;
@@ -167,42 +171,33 @@ sub _update_userdb {
 # MAIN
 #******
 
-# Get POST parameters
-my $cgi = CGI->new;
-my $user = $cgi->param("nam");
-info("Username is '$user'");
-my $passwd = $cgi->param("pwd");
+info("Username is '$nam'");
 my $userid;
-
-# Sanity check
-if (not exists $Global{'dbh'}) {
-   die "MFILE: Globals not loaded properly";
-}
 
 # Authenticate the user
 my $retval; 
 if ($Global{'LdapEnable'} eq 'yes') {
-   $retval = _authenticate_LDAP($user, $passwd);
+   $retval = _authenticate_LDAP($nam, $pwd);
    if ($retval ne 'success') {
       info("LDAP authentication failed ($retval)");
    }
 } else {
    info("LDAP disabled. Authenticating against local user DB.");
-   $retval = _authenticate_DB($user, $passwd);
+   $retval = _authenticate_DB($nam, $pwd);
 }
 
 # Update local user database
 if ($retval eq "success") {
-   info("User $user successfully authenticated");
+   info("User $nam successfully authenticated");
    # log them in
-   $userid = _update_userdb($user);
+   $userid = _update_userdb($nam);
 } else {
-   info("Authentication failed for user $user");
+   info("Authentication failed for user $nam");
    $userid = undef;
 }
 
 # Send result back to client
-my %result = ('result' => $retval, 'username' => $user, 'userid' => $userid);
+my %result = ('result' => $retval, 'username' => $nam, 'userid' => $userid);
 my $json_text = encode_json \%result;
 print $json_text;
 </%perl>
