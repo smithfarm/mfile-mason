@@ -1,14 +1,11 @@
 # Urgent
 20131014 On "bad credentials", clear password field and focus on
          Username field
-20131014 Make an autohandler that checks existence of
-         $Global{'dbh'} and if it doesn't exist, reloads page with 
-         'window.location.reload()' 
-20131014 Implement a top-level autohandler that checks the dbh
-         Refer to Chapter 8 of Mason book for inspiration
 
 # Short-term
 20131014 Firefox remember password is broken again
+20131015 Convert view cookie to Mason component and get rid of
+         MFILE.html; shrink JS stuff into a single .js file
 
 # Long-term
 20131007 Package in OBS
@@ -25,10 +22,7 @@
 	 disabled) -- for now, passwords to be set manually via mysql
 	 client
 20131011 Implement "RT Spam Domains" plugin
-20131012 - convert $Globals into OO function
-         - write generalized SQL error handler?
-20131014 Do something about disappearing $Global{'dbh'} bug. Find some
-         other way to store the database handler.
+20131012 write generalized SQL error handler?
 	 
 # Pre-production
 20131011 Search sources for 'YIKES' and delete backdoor(s)

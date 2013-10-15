@@ -2,19 +2,6 @@
 
 MFILE.cookie = {};
 
-MFILE.cookie.view = function () {
-   $('#mainarea').html(MFILE.html.view_cookie1);
-   $('#mainarea').append(document.cookie);
-   $("#mainarea").append(MFILE.html.press_any_key);
-   $("#continue").focus();
-   $("#continue").keydown(function(event) {
-      event.preventDefault();
-      MFILE.state = "MAIN_MENU";
-      MFILE.actOnState();
-   });
-}
-
-
 // cookie functions (by Scott Andrew)
 
 MFILE.cookie.create = function (name,value,days) {

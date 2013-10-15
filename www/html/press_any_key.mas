@@ -1,5 +1,6 @@
 <br>
-Press any key to continue: <input id='continue' size='1' maxlength='0' />
+Press any key to continue: <input id='continue' size='1' maxlength='0'
+/><br><br>
 
 <script>
    $("#continue").focus();

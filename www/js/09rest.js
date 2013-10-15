@@ -45,8 +45,7 @@ MFILE.actOnState = function () {
    } else if (MFILE.state === "TEST_LDAP") {
          $("#mainarea").load("/html/ldap-test.mas");
    } else if (MFILE.state === "VIEW_COOKIE") {
-         console.log("Calling MFILE.cookie.view()");
-         MFILE.cookie.view();
+         $("#mainarea").load("/html/cookie-view.mas");
    } else if (MFILE.state === "GENERATE_MAC_ADDRESSES") {
 	 $("#mainarea").load("/html/gen-mac.mas");
    } else if (MFILE.state === "REST_IN_THE_SELF") {
