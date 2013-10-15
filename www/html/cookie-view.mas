@@ -1,0 +1,8 @@
+<h2>Cookie view</h2>
+<div id="cookieview"></div>
+<& /html/press_any_key.mas &>
+
+<script>
+$('#cookieview').append(document.cookie);
+MFILE.state = 'MAIN_MENU';
+</script>
