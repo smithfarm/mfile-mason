@@ -28,10 +28,11 @@ sub _authenticate_LDAP {
    # YIKES YIKES YIKES YIKES YIKES YIKES YIKES !!
    # get rid of this before going into production
    # ********************************************
-   if ($user eq 'smithfarm' or $user eq 'ncutler' or $user eq 'demo') {
+   if ($user ~~ ['smithfarm', 'ncutler', 'demo'] ) {
       info("User is $user -- bypassing LDAP authentication.");
       return "success";
    }
+   # ********************************************
 
    my $server = $Global{'LdapServer'};
    my $base = $Global{'LdapBase'};

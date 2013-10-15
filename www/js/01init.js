@@ -1,11 +1,3 @@
-<%flags>
-inherit => undef
-</%flags>
-
-<%init>
-our %Global;
-</%init>
-
 // 01init.js
 //
 // MFILE JavaScript init script
