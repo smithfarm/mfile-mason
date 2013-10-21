@@ -1,8 +1,0 @@
-% # Sanity check
-% if (not exists $Global{'dbh'}) {
-<script>
-   window.location.reload();
-</script>
-% }
-% $m->call_next;
-
