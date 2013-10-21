@@ -72,11 +72,15 @@ sub LoadGlobal {
 # sanity check
 sub sanity_check {
   if (not exists $Global{'mfilevernum'}) {
+     debug("index.html: sanity check failed");
      LoadGlobal();
+     return;
   }
   if (not $Global{'dbh'}) {
+     debug("index.html: sanity check failed again!!!");
      die "MFILE DIED: No connection to database";
   }
+  debug("index.html: sanity check OK");
 }
 
 sanity_check();
